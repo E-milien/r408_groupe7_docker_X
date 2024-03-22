@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_DATABASE: your_database
+      MYSQL_USER: your_username
+      MYSQL_PASSWORD: your_password
+    ports:
+      - "3306:3306"
+
+  backend:
+    build: ./ProjectBackEnd
+    container_name: backend
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - "80:80"
+    volumes:
+      - ./ProjectBackEnd:/var/www/html
+
+  frontend:
+    build: ./ProjectFrontEnd
+    container_name: frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./ProjectFrontEnd:/app

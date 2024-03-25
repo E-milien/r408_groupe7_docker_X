@@ -1,32 +1,44 @@
-# Utiliser une image de base avec PHP et Composer préinstallés
-FROM composer:latest AS composer
+FROM webdevops/php-nginx:8.3-alpine
 
-# Définir le répertoire de travail dans le conteneur
+# Installation dans votre Image du minimum pour que Docker fonctionne
+RUN apk add oniguruma-dev libxml2-dev
+RUN docker-php-ext-install \
+        bcmath \
+        ctype \
+        fileinfo \
+        mbstring \
+        pdo_mysql \
+        xml
+
+# Installation dans votre image de Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Installation dans votre image de NodeJS
+RUN apk add nodejs npm
+
+ENV WEB_DOCUMENT_ROOT /app/public
+ENV APP_ENV production
 WORKDIR /app
+COPY . .
 
-# Copier uniquement le fichier composer.json pour installer les dépendances
-COPY composer.json composer.lock ./
+# On copie le fichier .env.example pour le renommer en .env
+# Vous pouvez modifier le .env.example pour indiquer la configuration de votre site pour la production
+RUN cp -n .env.example .env
 
-# Installer les dépendances
-RUN composer install --no-scripts --no-autoloader
+# Installation et configuration de votre site pour la production
+# https://laravel.com/docs/10.x/deployment#optimizing-configuration-loading
+RUN composer install --no-interaction --optimize-autoloader --no-dev
+# Generate security key
+RUN php artisan key:generate
+# Optimizing Configuration loading
+RUN php artisan config:cache
+# Optimizing Route loading
+RUN php artisan route:cache
+# Optimizing View loading
+RUN php artisan view:cache
 
-# Utiliser une image de base avec PHP, Apache et les dépendances installées précédemment
-FROM php:8.0-apache
+# Compilation des assets de Breeze (ou de votre site)
+RUN npm install
+RUN npm run build
 
-# Activer le module Apache pour le réécriture d'URL
-RUN a2enmod rewrite
-
-# Définir le répertoire de travail dans le conteneur
-WORKDIR /var/www/html
-
-# Copier tous les fichiers du projet Laravel dans le conteneur
-COPY --from=composer /app .
-
-# Installer les dépendances (y compris les dépendances de développement)
-RUN composer install
-
-# Exposer le port 80
-EXPOSE 80
-
-# Commande par défaut pour démarrer Apache
-CMD ["apache2-foreground"]
+RUN chown -R application:application .

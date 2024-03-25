@@ -1,5 +1,5 @@
 # Utiliser une image de base avec Node.js
-FROM node:14-alpine
+FROM node:20-alpine
 
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /app
@@ -20,4 +20,4 @@ RUN npm run build
 EXPOSE 80
 
 # Commande par défaut pour démarrer le serveur
-CMD ["npm", "run", "serve"]
+CMD ["npm", "run", "dev"]

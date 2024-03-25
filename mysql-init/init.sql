@@ -1,8 +1,4 @@
-create database twitter7;
-
-use twitter7;
-
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(255) NOT NULL,
     lastname VARCHAR(255) NOT NULL,
@@ -14,7 +10,7 @@ CREATE TABLE users (
     profile_pic VARCHAR(255) NULL
 );
 
-CREATE TABLE tweets (
+CREATE TABLE IF NOT EXISTS tweets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     tweet_text VARCHAR(280) NOT NULL,
@@ -22,7 +18,7 @@ CREATE TABLE tweets (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE followers (
+CREATE TABLE IF NOT EXISTS followers (
     follower_id INT,
     followed_id INT,
     PRIMARY KEY (follower_id,followed_id),
@@ -31,7 +27,7 @@ CREATE TABLE followers (
     
 );
 
-CREATE TABLE message (
+CREATE TABLE IF NOT EXISTS message (
     id INT AUTO_INCREMENT PRIMARY KEY,
     message_text VARCHAR(250) NOT NULL,
     userSend_id INT,
@@ -41,7 +37,7 @@ CREATE TABLE message (
     
 );
 
-CREATE TABLE comment (
+CREATE TABLE IF NOT EXISTS comment (
     id INT AUTO_INCREMENT PRIMARY KEY,
     comment_text VARCHAR(250) NOT NULL,
     user_id INT,
@@ -50,7 +46,7 @@ CREATE TABLE comment (
     FOREIGN KEY (tweet_id) REFERENCES tweets(id) 
 );
 
-CREATE TABLE like (
+CREATE TABLE IF NOT EXISTS like (
     user_id INT,
     tweet_id INT,
     PRIMARY KEY (user_id,tweet_id),
@@ -58,7 +54,7 @@ CREATE TABLE like (
     FOREIGN KEY (tweet_id) REFERENCES tweets(id)
 );
 
-CREATE TABLE retweet (
+CREATE TABLE IF NOT EXISTS retweet (
     user_id INT,
     tweet_id INT,
     PRIMARY KEY (user_id,tweet_id),
@@ -66,7 +62,7 @@ CREATE TABLE retweet (
     FOREIGN KEY (tweet_id) REFERENCES tweets(id)
 );
 
-CREATE TABLE picture (
+CREATE TABLE IF NOT EXISTS picture (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pic_uri VARCHAR(255) NULL,
     tweet_id INT,
@@ -74,4 +70,8 @@ CREATE TABLE picture (
 );
 
 
+INSERT INTO users (firstname, lastname, username, bio, email, pwd, profile_pic) VALUES
+('Hugo', 'Raguin', 'boubou', 'Développeur full-stack passionné par les nouvelles technologies.', 'hugo@example.com', 'motdepassehash', 'path/to/image1.jpg'),
+('Alex', 'Dupont', 'alexdu', 'Fan de randonnée et de photographie.', 'alex@example.com', 'unautremotdepasse', 'path/to/image2.jpg'),
+('Marie', 'Curie', 'mariecurie', 'Chercheuse en physique et en chimie, passionnée par la science.', 'marie@example.com', 'motdepasseencore', 'path/to/image3.jpg');
 

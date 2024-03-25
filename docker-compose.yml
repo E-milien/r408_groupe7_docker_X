@@ -2,13 +2,9 @@ version: '3'
 
 services:
   frontend:
-    build: 
-      context: ./ProjectFrontEnd
-      dockerfile: Dockerfile
+    build: ./frontend
     container_name: frontend
     restart: always
     ports:
-      - "3000:80"
-    volumes:
-      - ./ProjectFrontEnd:/app
+      - 3200:8080
 

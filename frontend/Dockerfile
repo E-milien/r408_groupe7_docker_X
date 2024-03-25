@@ -5,13 +5,13 @@ FROM node:14-alpine
 WORKDIR /app
 
 # Copier le fichier package.json et le fichier package-lock.json dans le conteneur
-COPY frontend/package*.json ./ 
+COPY ./package*.json ./ 
 
 # Installer les dépendances
 RUN npm install
 
 # Copier les fichiers du projet Vue.js dans le conteneur
-COPY frontend/ .
+COPY ./ .
 
 # Compiler le projet Vue.js
 RUN npm run build

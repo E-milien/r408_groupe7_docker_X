@@ -1,16 +1,23 @@
-FROM php:7.4-apache
+# Utiliser une image de base avec Node.js
+FROM node:14-alpine
 
-# Install PHP extensions
-RUN docker-php-ext-install mysqli pdo_mysql
+# Définir le répertoire de travail dans le conteneur
+WORKDIR /app
 
-# Enable Apache modules
-RUN a2enmod rewrite
+# Copier le fichier package.json et le fichier package-lock.json dans le conteneur
+COPY package*.json ./
 
-# Copy Apache configuration file
-COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
+# Installer les dépendances
+RUN npm install
 
-# Set working directory
-WORKDIR /var/www/html
+# Copier les fichiers du projet Vue.js dans le conteneur
+COPY . /app
 
-# Expose port 80
+# Compiler le projet Vue.js
+RUN npm run build
+
+# Exposer le port 80
 EXPOSE 80
+
+# Commande par défaut pour démarrer le serveur
+CMD ["npm", "run", "serve"]

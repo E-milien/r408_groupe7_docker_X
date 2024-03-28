@@ -38,9 +38,11 @@ services:
     ports:
       - "1313:80"
     environment:
-      PMA_HOST: database
+      PMA_HOST: db
       PMA_USER: mon_user
       PMA_PASSWORD: mon_mot_de_passe
       PMA_ARBITRARY: 1
+    depends_on:
+      - db
 
  

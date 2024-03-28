@@ -10,6 +10,8 @@ COPY ./package*.json ./
 # Installer les dépendances
 RUN npm install
 
+RUN npm install pinia
+
 # Copier les fichiers du projet Vue.js dans le conteneur
 COPY ./ .
 

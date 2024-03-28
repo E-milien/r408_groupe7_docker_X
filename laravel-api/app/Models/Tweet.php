@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tweet extends Model
 {
-    protected $table = "tweet";
-    protected $primaryKey = "id";
-    public $timestamps = false;
+    use HasFactory;
+
+    protected $fillable = [
+        'id',
+        'user_id',
+        'tweet_text',
+        'created_at'
+    ];
 }

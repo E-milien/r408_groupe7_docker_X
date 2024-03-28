@@ -7,9 +7,9 @@ export const useTestStore = defineStore('test', () => {
 
         
 
-        const response = await fetch('http://localhost:5000/api/index', {method:'GET'})
+        const response = await fetch('http://localhost:5000/api/tweets', {method:'GET'})
 
-        mydata.value=await response.text()
+        mydata.value=await response.json()
         return response
 
     }

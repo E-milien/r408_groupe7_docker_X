@@ -8,15 +8,17 @@ CREATE TABLE IF NOT EXISTS users (
     pwd VARCHAR(255) NOT NULL,
     birthdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     profile_pic VARCHAR(255) NULL
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS tweets (
+CREATE TABLE IF NOT EXISTS tweet (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     tweet_text VARCHAR(280) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS followers (
     follower_id INT,
@@ -25,7 +27,8 @@ CREATE TABLE IF NOT EXISTS followers (
     FOREIGN KEY (follower_id) REFERENCES users(id),
     FOREIGN KEY (followed_id) REFERENCES users(id)
     
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS message (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -35,7 +38,8 @@ CREATE TABLE IF NOT EXISTS message (
     FOREIGN KEY (userSend_id) REFERENCES users(id),
     FOREIGN KEY (userRecive_id) REFERENCES users(id)
     
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS comment (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -44,7 +48,8 @@ CREATE TABLE IF NOT EXISTS comment (
     tweet_id INT,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (tweet_id) REFERENCES tweets(id) 
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS like (
     user_id INT,
@@ -52,7 +57,8 @@ CREATE TABLE IF NOT EXISTS like (
     PRIMARY KEY (user_id,tweet_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (tweet_id) REFERENCES tweets(id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS retweet (
     user_id INT,
@@ -60,14 +66,16 @@ CREATE TABLE IF NOT EXISTS retweet (
     PRIMARY KEY (user_id,tweet_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (tweet_id) REFERENCES tweets(id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS picture (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pic_uri VARCHAR(255) NULL,
     tweet_id INT,
     FOREIGN KEY (tweet_id) REFERENCES tweets(id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_general_ci;
 
 
 INSERT INTO users (firstname, lastname, username, bio, email, pwd, profile_pic) VALUES
@@ -75,3 +83,7 @@ INSERT INTO users (firstname, lastname, username, bio, email, pwd, profile_pic) 
 ('Alex', 'Dupont', 'alexdu', 'Fan de randonnée et de photographie.', 'alex@example.com', 'unautremotdepasse', 'path/to/image2.jpg'),
 ('Marie', 'Curie', 'mariecurie', 'Chercheuse en physique et en chimie, passionnée par la science.', 'marie@example.com', 'motdepasseencore', 'path/to/image3.jpg');
 
+INSERT INTO tweet (user_id, tweet_text) VALUES 
+(1, 'Contenu du tweet 1'),
+(2, 'Contenu du tweet 2'),
+(3, 'Contenu du tweet 3');

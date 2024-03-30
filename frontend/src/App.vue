@@ -29,7 +29,7 @@ tweetStore.getTweets()
 </script>
 
 <template>
-  <div id="body">
+  <div class="body" :class="{ 'dark-mode': isDarkMode }">
     <header :class="{ 'dark-mode': isDarkMode }">
       <h1>Twitter</h1>
       <button @click="toggleDarkMode">{{ isDarkMode ? 'Mode Jour' : 'Mode Nuit' }}</button>
@@ -52,13 +52,28 @@ tweetStore.getTweets()
 </template>
 
 <style scoped>
-#body {
+body,
+.body {
   background-color: white;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body.dark-mode,
+.body.dark-mode {
+  background-color: #444444;
+}
+
+header,
+.tweet-list {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 header {
   background-color: #1da1f2;
-  padding: 20px;
   color: white;
 }
 
@@ -77,12 +92,10 @@ nav a:hover {
   text-decoration: underline;
 }
 
-/* Styles pour la zone des tweets */
 .tweet-list {
   margin-top: 20px;
 }
 
-/* Styles pour le mode nuit */
 body.dark-mode {
   background-color: #121212;
   color: #ffffff;
@@ -96,12 +109,12 @@ header.dark-mode {
   color: #cccccc;
 }
 
-.addToCart.dark-mode button {
+.like.dark-mode button {
   background-color: #1da1f2;
   color: white;
 }
 
-.addToCart.dark-mode button:hover {
+.like.dark-mode button:hover {
   background-color: #0b7bc6;
 }
 </style>

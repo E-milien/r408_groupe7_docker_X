@@ -3,16 +3,16 @@ import { defineStore } from 'pinia'
 
 export const useTestStore = defineStore('test', () => {
     const mydata = ref(null)
-    async function getTest(){
+    async function getTest() {
 
-        
 
-        const response = await fetch('http://localhost:5000/api/tweets', {method:'GET'})
 
-        mydata.value=await response.json()
+        const response = await fetch('http://localhost:5020/api/tweet', { method: 'GET' })
+
+        mydata.value = await response.json()
         return response
 
     }
 
-    return {getTest, mydata}
+    return { getTest, mydata }
 })

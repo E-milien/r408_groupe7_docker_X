@@ -47,16 +47,16 @@ CREATE TABLE IF NOT EXISTS comment (
     user_id INT,
     tweet_id INT,
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (tweet_id) REFERENCES tweets(id) 
+    FOREIGN KEY (tweet_id) REFERENCES tweet(id) 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS like (
+CREATE TABLE IF NOT EXISTS likes (
     user_id INT,
     tweet_id INT,
     PRIMARY KEY (user_id,tweet_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (tweet_id) REFERENCES tweets(id)
+    FOREIGN KEY (tweet_id) REFERENCES tweet(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
 COLLATE=utf8mb4_general_ci;
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS retweet (
     tweet_id INT,
     PRIMARY KEY (user_id,tweet_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (tweet_id) REFERENCES tweets(id)
+    FOREIGN KEY (tweet_id) REFERENCES tweet(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
 COLLATE=utf8mb4_general_ci;
 
@@ -73,10 +73,11 @@ CREATE TABLE IF NOT EXISTS picture (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pic_uri VARCHAR(255) NULL,
     tweet_id INT,
-    FOREIGN KEY (tweet_id) REFERENCES tweets(id)
+    FOREIGN KEY (tweet_id) REFERENCES tweet(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
 COLLATE=utf8mb4_general_ci;
 
+use twitter_bdd;
 
 INSERT INTO users (firstname, lastname, username, bio, email, pwd, profile_pic) VALUES
 ('Hugo', 'Raguin', 'boubou', 'Développeur full-stack passionné par les nouvelles technologies.', 'hugo@example.com', 'motdepassehash', 'path/to/image1.jpg'),

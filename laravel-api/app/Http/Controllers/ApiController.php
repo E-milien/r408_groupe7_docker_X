@@ -11,22 +11,9 @@ class ApiController extends Controller
         return 'hello world';
     }
 
-    public function tweet(Request $request) {
-        $tweets = [
-            [
-                "user_id" => 1,
-                "tweet_text" => "Contenu du tweet 1"
-            ],
-            [
-                "user_id" => 2,
-                "tweet_text" => "Contenu du tweet 2"
-            ],
-            [
-                "user_id" => 3,
-                "tweet_text" => "Contenu du tweet 3"
-            ]
-        ];
-    
-        return $tweets;
+    public function getTweet(){
+        return Tweet::all();
     }
+
+    
 }

@@ -1,3 +1,5 @@
+use twitterbdd;
+
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(255) NOT NULL,
@@ -77,7 +79,6 @@ CREATE TABLE IF NOT EXISTS picture (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
 COLLATE=utf8mb4_general_ci;
 
-use twitter_bdd;
 
 INSERT INTO users (firstname, lastname, username, bio, email, pwd, profile_pic) VALUES
 ('Hugo', 'Raguin', 'boubou', 'Développeur full-stack passionné par les nouvelles technologies.', 'hugo@example.com', 'motdepassehash', 'path/to/image1.jpg'),
@@ -87,4 +88,6 @@ INSERT INTO users (firstname, lastname, username, bio, email, pwd, profile_pic) 
 INSERT INTO tweet (user_id, tweet_text) VALUES 
 (1, 'Contenu du tweet 1'),
 (2, 'Contenu du tweet 2'),
-(3, 'Contenu du tweet 3');
+(3, 'Contenu du tweet 3'),
+(1, 'Contenu du tweet 4');
+

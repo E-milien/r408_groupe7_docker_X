@@ -17,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/index", [ApiController::class, 'index']);
 
-Route::get("/tweets", [ApiController::class, 'tweet']);
+Route::get("/tweet", [ApiController::class, 'getTweet']);

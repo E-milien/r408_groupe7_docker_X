@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS comment (
     user_id INT,
     tweet_id INT,
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (tweet_id) REFERENCES tweet(id) 
+    FOREIGN KEY (tweet_id) REFERENCES tweets(id) 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
 COLLATE=utf8mb4_general_ci;
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS likes (
     tweet_id INT,
     PRIMARY KEY (user_id,tweet_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (tweet_id) REFERENCES tweet(id)
+    FOREIGN KEY (tweet_id) REFERENCES tweets(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
 COLLATE=utf8mb4_general_ci;
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS retweet (
     tweet_id INT,
     PRIMARY KEY (user_id,tweet_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (tweet_id) REFERENCES tweet(id)
+    FOREIGN KEY (tweet_id) REFERENCES tweets(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
 COLLATE=utf8mb4_general_ci;
 
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS picture (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pic_uri VARCHAR(255) NULL,
     tweet_id INT,
-    FOREIGN KEY (tweet_id) REFERENCES tweet(id)
+    FOREIGN KEY (tweet_id) REFERENCES tweets(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
 COLLATE=utf8mb4_general_ci;
 

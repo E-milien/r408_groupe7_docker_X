@@ -5,20 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tweet;
 
-class ApiController extends Controller
+class TweetController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return 'hello world';
     }
 
-    public function getTweet(){
+    public function getTweet()
+    {
         return Tweet::all();
     }
 
 
-    public function createTweet(Request $request){
+    public function createTweet(Request $request)
+    {
         $request->validate([
-            'user_id' => 'required|integer', 
+            'user_id' => 'required|integer',
             'tweet_text' => 'required|string|max:280',
         ]);
 
@@ -31,15 +34,14 @@ class ApiController extends Controller
         return response()->json(['message' => 'Tweet posté avec succès'], 201);
     }
 
-    public function updateTweet(Request $request, $id){
+    public function updateTweet(Request $request, $id)
+    {
         $task = Tweet::findOrFail($id);
         return $task->update($request->all());
-
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         Tweet::findOrFail($id)->delete();
     }
-
-    
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\TweetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/index", [ApiController::class, 'index']);
+Route::get("/index", [TweetController::class, 'index']);
 
-Route::get("/tweet", [ApiController::class, 'getTweet']);
+Route::get("/tweet", [TweetController::class, 'getTweet']);
+Route::Post("/createtweet", [TweetController::class,'createTweet']);

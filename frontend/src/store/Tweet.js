@@ -6,8 +6,8 @@ export const useTweetStore = defineStore('tweet', () => {
     async function getTweet() {
         const response = await fetch('http://localhost:5020/api/tweet', { method: 'GET' })
 
-        mydata.value = await response.json()
+        allTweet.value = await response.json()
         return response
     }
-    return { getTest, allTweet }
+    return { getTweet, allTweet }
 })

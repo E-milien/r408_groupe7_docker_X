@@ -90,4 +90,5 @@ INSERT INTO tweets (user_id, tweet_text) VALUES
 (2, 'Contenu du tweet 2'),
 (3, 'Contenu du tweet 3'),
 (1, 'Contenu du tweet 4');
+(2, 'Contenu du tweet 4');
 

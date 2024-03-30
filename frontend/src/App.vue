@@ -7,20 +7,16 @@ tweetStore.getTweet()
 </script>
 
 <template>
-  {{ tweetStore.allTweet }}
+
   <header>
+    {{ tweetStore.allTweet }}
 
-    <div>
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
+    <nav>
+      <RouterLink to="/">Acceuil</RouterLink>
+      <RouterLink to="/register">Créer un compte</RouterLink>
+      <RouterLink to="/login">Se connecter</RouterLink>
+    </nav>
   </header>
-
-  <RouterView />
 </template>
 
 <style scoped></style>
-./store/Tweet./store/tweet

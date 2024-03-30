@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TweetController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,4 @@ Route::get("/index", [TweetController::class, 'index']);
 
 Route::get("/tweet", [TweetController::class, 'getTweet']);
 Route::Post("/createtweet", [TweetController::class,'createTweet']);
+Route::post('/register', [RegisterController::class, 'authenticate']);

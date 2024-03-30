@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS tweets (
+CREATE TABLE IF NOT EXISTS tweet (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     tweet_text VARCHAR(280) NOT NULL,
@@ -85,7 +85,7 @@ INSERT INTO users (firstname, lastname, username, bio, email, pwd, profile_pic) 
 ('Alex', 'Dupont', 'alexdu', 'Fan de randonnée et de photographie.', 'alex@example.com', 'unautremotdepasse', 'path/to/image2.jpg'),
 ('Marie', 'Curie', 'mariecurie', 'Chercheuse en physique et en chimie, passionnée par la science.', 'marie@example.com', 'motdepasseencore', 'path/to/image3.jpg');
 
-INSERT INTO tweets (user_id, tweet_text) VALUES 
+INSERT INTO tweet (user_id, tweet_text) VALUES 
 (1, 'Contenu du tweet 1'),
 (2, 'Contenu du tweet 2'),
 (3, 'Contenu du tweet 3'),

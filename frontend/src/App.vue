@@ -1,7 +1,5 @@
 <script setup>
-import Tweet from './components/Tweet.vue'
-import { RouterLink,RouterView } from 'vue-router'
-import { useTweetStore } from './store/tweet'
+import { RouterLink, RouterView } from 'vue-router'
 import { ref } from 'vue';
 
 const isDarkMode = ref(false);
@@ -20,9 +18,6 @@ watch(isDarkMode, (value) => {
 });
 
 document.title = "Tweeter";
-
-const tweetStore = useTweetStore()
-tweetStore.getTweets()
 </script>
 
 <template>
@@ -36,12 +31,8 @@ tweetStore.getTweets()
         <RouterLink to="/login">Se connecter</RouterLink>
       </nav>
     </header>
-    <keep-alive include="page1">  
-    <router-view></router-view>
-</keep-alive>
-    <div class="tweet-list" :class="{ 'dark-mode': isDarkMode }">
-      <Tweet v-for="tweet in tweetStore.allTweet" :key="tweet.id" :tweet="tweet" />
-    </div>
+    <RouterView />
+
   </div>
 </template>
 
@@ -87,9 +78,6 @@ nav a:hover {
   text-decoration: underline;
 }
 
-.tweet-list {
-  margin-top: 20px;
-}
 
 body.dark-mode {
   background-color: #121212;

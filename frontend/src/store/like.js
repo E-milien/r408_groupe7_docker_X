@@ -1,13 +1,39 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useTweetStore = defineStore('tweet', () => {
-    const allTweet = ref(null)
-    async function getTweets() {
-        const response = await fetch('http://localhost:5020/api/tweet', { method: 'GET' })
+export const useLikeStore = defineStore('like', () => {
+    const allLike = ref(null)
 
-        allTweet.value = await response.json()
+    async function getLikes() {
+        const response = await fetch('http://localhost:5020/api/getLikes', { method: 'GET' })
+
+        allLike.value = await response.json()
         return response
     }
-    return { getTweets, allTweet }
+
+    async function getLikesById(id) {
+        const response = await fetch(`http://localhost:5020/api/likesById/${id}`, { method: 'GET' })
+
+        const allLikeByID = await response.json()
+        return allLikeByID
+    }
+
+    async function addLike(like) {
+        allLike.value.push(like)
+
+        const response = await fetch(`http://localhost:5020/api/postLike`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(like)
+        })
+        return response.ok
+    }
+
+    async function removeLike(like) {
+        const response = await fetch(`http://localhost:5020/api/likes/${like.user_id}/${like.tweet_id}`, { method: 'DELETE' })
+
+        return response.ok
+    }
+
+    return { getLikes, getLikesById, removeLike, addLike, allLike }
 })

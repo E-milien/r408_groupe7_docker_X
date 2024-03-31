@@ -4,15 +4,12 @@ import { RouterLink } from 'vue-router'
 import { useTweetStore } from './store/tweet'
 import { ref } from 'vue';
 
-// Variable d'état pour le mode nuit
 const isDarkMode = ref(false);
 
-// Fonction pour basculer le mode nuit
 const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value;
 };
 
-// Appliquer la classe CSS dynamiquement au body
 import { watch } from 'vue';
 watch(isDarkMode, (value) => {
   if (value) {

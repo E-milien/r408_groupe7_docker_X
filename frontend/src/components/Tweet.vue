@@ -1,5 +1,12 @@
 <script setup>
 import { ref } from 'vue';
+import { useUserStore } from '../store/user'
+import { useCommentStore } from '../store/comment'
+import { useLikeStore } from '../store/like'
+
+const userStore = useUserStore();
+const commentStore = useCommentStore();
+const likeStore = useLikeStore();
 
 
 const props = defineProps({
@@ -12,17 +19,30 @@ const props = defineProps({
 const liked = ref(false);
 
 const toggleLike = () => {
+    if (!liked.value) {
+        likeStore.addLike({ 'user_id': 1, 'tweet_id': tweet.id }) //a cahnger la valeur 1 mettre la varaible de session
+    } else {
+        likeStore.addLike({ 'user_id': 1, 'tweet_id': tweet.id }) //a cahnger la valeur 1 mettre la varaible de session
+    }
     liked.value = !liked.value;
 };
 </script>
 
 <template>
     <div>
-        <h3>{{ tweet.user_id }}</h3>
+        <h3>{{ userStore.getUserById(tweet.user_id) }}</h3>
         <p class="text">{{ tweet.tweet_text }}</p>
         <p class="like">
             <button @click="toggleLike">{{ liked ? 'UnLike' : 'Like' }}</button>
         </p>
+        <div v-for="comment in commentStore.getCommentByIdTweet(tweet.id)">
+            <h3>{{ userStore.getUserById(comment.user_id) }}</h3>
+            <p>{{ comment.comment_text }}</p>
+        </div>
+        <div>
+            <input type="text" placeholder="Commentaire...">
+            <button @click="">Poster</button>
+        </div>
     </div>
 </template>
 

@@ -4,10 +4,29 @@ import { defineStore } from 'pinia'
 export const useUserStore = defineStore('user', () => {
     const allUser = ref(null)
     async function getUsers() {
-        const response = await fetch('http://localhost:5020/api/user', { method: 'GET' })
+        const response = await fetch('http://localhost:5020/api/users', { method: 'GET' })
 
         allUser.value = await response.json()
-        return response
+        return response.ok
     }
-    return { getUsers, allUser }
+
+    async function getUserById(id) {
+        const response = await fetch(`http://localhost:5020/api/users/getById/${id}`, { method: 'GET' })
+
+        const unUser = await response.json()
+        return unUser
+    }
+
+    async function addUser(user) {
+        allUser.value.push(user)
+
+
+        const response = await fetch(`http://localhost:5020/api/postUser`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
+        })
+        return response.ok
+    }
+    return { getUsers, getUserById, allUser }
 })

@@ -7,14 +7,15 @@ use App\Models\Tweet;
 
 class TweetController extends Controller
 {
-    public function index()
-    {
-        return 'hello world';
-    }
 
     public function getTweet()
     {
         return Tweet::all();
+    }
+
+    public function getById(Request $request, $id)
+    {
+        return Tweet::findOrFail($id);
     }
 
 
@@ -30,7 +31,6 @@ class TweetController extends Controller
         $tweet->tweet_text = $request->tweet_text;
         $tweet->save();
 
-        // Retourner une réponse appropriée
         return response()->json(['message' => 'Tweet posté avec succès'], 201);
     }
 

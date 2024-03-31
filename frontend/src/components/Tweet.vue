@@ -1,13 +1,9 @@
 <script setup>
-import { ref } from 'vue';
-import { useUserStore } from '../store/user'
-import { useCommentStore } from '../store/comment'
-import { useLikeStore } from '../store/like'
-
-const userStore = useUserStore();
-const commentStore = useCommentStore();
-const likeStore = useLikeStore();
-
+import Comment from '../components/Comment.vue'
+import { ref, defineProps } from 'vue';
+import { useUserStore } from '../store/user';
+import { useCommentStore } from '../store/comment';
+import { useLikeStore } from '../store/like';
 
 const props = defineProps({
     tweet: {
@@ -16,55 +12,100 @@ const props = defineProps({
     }
 });
 
+const theTweet = props.tweet
+
+const userStore = useUserStore();
+const commentStore = useCommentStore();
+const likeStore = useLikeStore();
+
 const liked = ref(false);
+const commentaire = ref("");
 
 const toggleLike = () => {
     if (!liked.value) {
-        likeStore.addLike({ 'user_id': 1, 'tweet_id': tweet.id }) //a cahnger la valeur 1 mettre la varaible de session
+        likeStore.addLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });
     } else {
-        likeStore.addLike({ 'user_id': 1, 'tweet_id': tweet.id }) //a cahnger la valeur 1 mettre la varaible de session
+        likeStore.removeLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });
     }
     liked.value = !liked.value;
 };
+
+const postCommentaire = () => {
+    useCommentStore.addComment({ 'comment_text': commentaire, 'user_id': getCurrentUserId, 'tweet_id': theTweet.id })
+};
+
+
+
+const getCurrentUserId = () => {
+    // return sessionStorage.getItem('iduser');
+    return 1;
+};
+
+const fetchUser = async () => {
+    return await userStore.getUserById(theTweet.user_id);
+};
+
+const leUser = ref("");
+fetchUser().then(usr => {
+    leUser.value = usr
+});
+
+const fetchComments = async () => {
+    return await commentStore.getCommentByIdTweet(theTweet.id);
+};
+
+const lesCom = ref([]);
+fetchComments().then(comments => {
+    lesCom.value = comments
+});
 </script>
 
 <template>
-    <div>
-        <h3>{{ userStore.getUserById(tweet.user_id) }}</h3>
-        <p class="text">{{ tweet.tweet_text }}</p>
-        <p class="like">
-            <button @click="toggleLike">{{ liked ? 'UnLike' : 'Like' }}</button>
-        </p>
-        <div v-for="comment in commentStore.getCommentByIdTweet(tweet.id)">
-            <h3>{{ userStore.getUserById(comment.user_id) }}</h3>
-            <p>{{ comment.comment_text }}</p>
+    <div id="leTweet">
+        <h3>@{{ leUser.username }}</h3>
+        <div id="main">
+            <p class="text">{{ tweet.tweet_text }}</p>
+            <p class="date">Posté le {{ tweet.created_at }}</p>
         </div>
-        <div>
-            <input type="text" placeholder="Commentaire...">
-            <button @click="">Poster</button>
+        <div id="interact">
+            <p class="like">
+                <button @click="toggleLike">{{ liked.value ? 'UnLike' : 'Like' }}</button>
+            </p>
+            <input type="text" v-model="commentaire" placeholder="Commentaire...">
+            <button @click="postCommentaire">Poster</button>
         </div>
+        <Comment v-for="comment in lesCom" :key="comment.id" :comment="comment" />
     </div>
 </template>
 
 <style scoped>
-div {
-    margin-bottom: 20px;
-    padding: 20px;
-    background-color: #f7f7f7;
+#leTweet {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
 }
 
-h3 {
-    margin: 0;
+#leTweet h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
     color: #333;
+}
+
+#main {
+    margin-bottom: 10px;
 }
 
 .text {
     color: #666;
+    margin: 0;
+    font-size: larger;
 }
 
-.like {
-    margin-top: 10px;
+#interact {
+    display: flex;
+    align-items: center;
 }
 
 .like button {
@@ -78,5 +119,16 @@ h3 {
 
 .like button:hover {
     background-color: #0b7bc6;
+}
+
+#interact input[type="text"],
+#interact button {
+    margin-left: 10px;
+}
+
+.date {
+    color: #666;
+    margin: 0;
+    text-align: right;
 }
 </style>

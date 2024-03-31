@@ -39,11 +39,8 @@ tweetStore.getTweets()
 
 
 
-    <div v-if="tweetStore.allTweet.length" class="tweet-list" :class="{ 'dark-mode': isDarkMode }">
+    <div class="tweet-list" :class="{ 'dark-mode': isDarkMode }">
       <Tweet v-for="tweet in tweetStore.allTweet" :key="tweet.id" :tweet="tweet" />
-    </div>
-    <div v-else>
-      <p>Aucun tweet trouvé.</p>
     </div>
   </div>
 </template>

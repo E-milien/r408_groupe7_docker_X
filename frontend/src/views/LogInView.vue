@@ -9,9 +9,10 @@ const password = ref('');
 const login = () => {
 
     console.log('Connexion avec :', username.value, password.value);
-
+    //sessionStorage.setItem('iduser', 'valeur');
     router.push('/');
 };
+
 </script>
 
 <template>

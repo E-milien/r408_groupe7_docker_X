@@ -24,10 +24,11 @@ class RegisterController extends Controller
 
         // Créer un nouvel utilisateur et hasher le mot de passe
         $user = new User();
-        $user->firstname = $request->input('firstname');
-        $user->lastname = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->pwd = Hash::make($request->pwd);
         $user->save();
 
         // Vous pouvez retourner une réponse JSON ou rediriger l'utilisateur vers une autre page

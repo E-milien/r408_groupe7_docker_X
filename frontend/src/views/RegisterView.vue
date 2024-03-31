@@ -1,6 +1,10 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../store/user'
+import { ref } from 'vue';
+import { RouterLink,RouterView } from 'vue-router'
+
+
 
 const userStore = useUserStore();
 
@@ -12,7 +16,7 @@ const username = ref('');
 const email = ref('');
 const password = ref('');
 
-const register = () => {
+const register = async () => {
     const newUser = {
         firstname: firstname.value,
         lastname: lastname.value,
@@ -21,12 +25,13 @@ const register = () => {
         password: password.value
     };
     console.log('Nouvel utilisateur :', newUser);
-    useUserStore.addUser(newUser);
+    await userStore.addUser(newUser); // Appel de la méthode addUser du magasin
     router.push('/');
 };
 </script>
 
 <template>
+
     <div class="signup-page">
         <div class="signup-container">
             <h1>S'inscrire à Twitter</h1>

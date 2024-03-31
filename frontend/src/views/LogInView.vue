@@ -1,5 +1,8 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+import { RouterLink,RouterView } from 'vue-router'
+
 
 const router = useRouter();
 
@@ -16,6 +19,7 @@ const login = () => {
 </script>
 
 <template>
+
     <div class="login-page">
         <div class="login-container">
             <h1>Se connecter à Twitter</h1>

@@ -1,6 +1,6 @@
 <script setup>
 import Tweet from './components/Tweet.vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink,RouterView } from 'vue-router'
 import { useTweetStore } from './store/tweet'
 import { ref } from 'vue';
 
@@ -36,14 +36,15 @@ tweetStore.getTweets()
         <RouterLink to="/login">Se connecter</RouterLink>
       </nav>
     </header>
-
-
-
+    <keep-alive include="page1">  
+    <router-view></router-view>
+</keep-alive>
     <div class="tweet-list" :class="{ 'dark-mode': isDarkMode }">
       <Tweet v-for="tweet in tweetStore.allTweet" :key="tweet.id" :tweet="tweet" />
     </div>
   </div>
 </template>
+
 
 <style scoped>
 body,

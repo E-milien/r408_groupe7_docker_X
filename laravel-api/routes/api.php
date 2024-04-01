@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/tweet", [TweetController::class, 'getTweet']);
 Route::Post("/createtweet", [TweetController::class, 'createTweet']);
-Route::post('/register', [AuthController::class, 'authenticate']);
+Route::post('/registerNew', [AuthController::class, 'authenticate']);
 
 Route::delete('/likes/{userId}/{tweetId}', [LikeController::class, 'delete']);
 Route::post('/postLike', [LikeController::class, 'store']);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LikeController;

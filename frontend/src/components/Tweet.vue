@@ -8,7 +8,8 @@ import { useLikeStore } from '../store/like';
 const userStore = useUserStore();
 const commentStore = useCommentStore();
 const likeStore = useLikeStore();
-
+var textLike = ref("pas assigné");
+console.log("debut", textLike.value)
 const props = defineProps({
     tweet: {
         required: true,
@@ -22,6 +23,20 @@ const getCurrentUserId = () => {
     return 1;
 };
 
+const fetchLike = async () => {
+    return await likeStore.liked(getCurrentUserId(), theTweet.id);
+};
+
+
+fetchLike().then(like => {
+    if (like) {
+        textLike.value = 'unlike'
+        console.log("dans le like", textLike.value)
+    }
+    else
+        textLike.value = 'like'
+});
+
 const fetchUser = async () => {
     return await userStore.getUserById(theTweet.user_id);
 };
@@ -29,18 +44,6 @@ const fetchUser = async () => {
 const leUser = ref("");
 fetchUser().then(usr => {
     leUser.value = usr
-});
-
-const fetchLike = async () => {
-    return await likeStore.liked(getCurrentUserId(), theTweet.id);
-};
-
-const liked = ref("");
-fetchLike().then(like => {
-    if (like)
-        liked.value = 'like'
-    else
-        liked.value = 'unlike'
 });
 
 const fetchComments = async () => {
@@ -55,13 +58,13 @@ fetchComments().then(comments => {
 const commentaire = ref("");
 
 const toggleLike = () => {
-    console.log("likedvalue", liked.value)
-    if (liked.value == 'unlike') {
+
+    if (textLike.value == 'unlike') {
         likeStore.addLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });//consolelog
-        liked.value = 'like';
+        textLike.value = 'like';
     } else {
         likeStore.removeLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });//consolelog
-        liked.value = 'unlike';
+        textLike.value = 'unlike';
     }
 };
 
@@ -79,10 +82,12 @@ const postCommentaire = () => {
     console.log(leCom)
     lesCom.value.push(leCom)
     commentStore.addComment(leCom)
+    commentaire.value = "";
 };
 </script>
 
 <template>
+
     <div id="leTweet">
         <h3>@{{ leUser.username }}</h3>
         <div id="main">
@@ -90,12 +95,7 @@ const postCommentaire = () => {
             <p class="date">Posté le {{ tweet.created_at }}</p>
         </div>
         <div id="interact">
-            <p class="like">
-                <button id="button-like" @click="toggleLike">
-                    {{ liked.value }}
-                </button>
-
-            </p>
+            <button id="button-like" @click="toggleLike">{{ textLike }}</button>
             <input type="text" v-model="commentaire" placeholder="Commentaire...">
             <button @click="postCommentaire">Poster</button>
         </div>

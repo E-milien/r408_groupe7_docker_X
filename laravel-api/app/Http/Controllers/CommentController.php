@@ -38,7 +38,7 @@ class CommentController extends Controller
         $comment->save();
 
 
-        return response()->json(['message' => 'Tweet posté avec succès'], 201);
+        return response()->json(['message' => 'Commentaire posté avec succès'], 201);
     }
 
     public function delete($id)

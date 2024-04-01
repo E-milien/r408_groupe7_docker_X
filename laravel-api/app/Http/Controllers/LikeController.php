@@ -17,26 +17,20 @@ class LikeController extends Controller
         return Like::where('tweet_id', $id)->get();
     }
 
-    public function getLiked($user_id, $tweet_id)
+    public function getLiked($userId, $tweetId)
     {
-        return Like::where('tweet_id', $tweet_id)
-            ->where('user_id', $user_id)
+        return Like::where('tweet_id', $tweetId)
+            ->where('user_id', $userId)
             ->get();
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'tweet_id' => 'required|exists:tweets,id',
-        ]);
-
-        $like = Like::create([
-            'user_id' => $request->user_id,
-            'tweet_id' => $request->tweet_id,
-        ]);
-
-        return response()->json($like, 201);
+        $like = new Like();
+        $like->user_id = $request->user_id;
+        $like->tweet_id = $request->tweet_id;
+        $like->save();
+        return response()->json(['message' => 'Like posté avec succès'], 201);
     }
 
     public function delete($userId, $tweetId)

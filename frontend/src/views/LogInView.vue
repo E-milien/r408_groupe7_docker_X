@@ -1,7 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
-import { RouterLink,RouterView } from 'vue-router'
+import { RouterLink } from 'vue-router'
 
 
 const router = useRouter();

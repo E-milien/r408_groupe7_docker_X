@@ -35,7 +35,7 @@ class LikeController extends Controller
 
     public function delete($userId, $tweetId)
     {
-        $like = Like::where('user_id', $userId)->where('tweet_id', $tweetId)->first();
+        $like = Like::where('user_id', $userId)->where('tweet_id', $tweetId)->firstOrDefault();
 
         if ($like) {
             $like->delete();

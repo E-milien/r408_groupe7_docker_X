@@ -9,7 +9,6 @@ const userStore = useUserStore();
 const commentStore = useCommentStore();
 const likeStore = useLikeStore();
 var textLike = ref("pas assigné");
-console.log("debut", textLike.value)
 const props = defineProps({
     tweet: {
         required: true,
@@ -31,7 +30,6 @@ const fetchLike = async () => {
 fetchLike().then(like => {
     if (like) {
         textLike.value = 'unlike'
-        console.log("dans le like", textLike.value)
     }
     else
         textLike.value = 'like'
@@ -59,12 +57,12 @@ const commentaire = ref("");
 
 const toggleLike = () => {
 
-    if (textLike.value == 'unlike') {
+    if (textLike.value == 'like') {
         likeStore.addLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });//consolelog
-        textLike.value = 'like';
+        textLike.value = 'unlike';
     } else {
         likeStore.removeLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });//consolelog
-        textLike.value = 'unlike';
+        textLike.value = 'like';
     }
 };
 

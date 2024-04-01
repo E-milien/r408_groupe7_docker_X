@@ -17,7 +17,7 @@ watch(isDarkMode, (value) => {
   }
 });
 
-document.title = "Tweeter";
+document.title = "Twitter";
 </script>
 
 <template>

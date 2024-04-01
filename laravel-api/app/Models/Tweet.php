@@ -16,4 +16,5 @@ class Tweet extends Model
         'tweet_text',
         'created_at'
     ];
+    public $timestamps = false;
 }

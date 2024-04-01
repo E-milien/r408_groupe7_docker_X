@@ -10,4 +10,5 @@ class Like  extends Model
 {
     protected $primaryKey = ['user_id', 'tweet_id'];
     public $incrementing = false;
+    public $timestamps = false;
 }

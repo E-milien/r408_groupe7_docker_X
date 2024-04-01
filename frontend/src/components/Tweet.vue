@@ -17,6 +17,8 @@ const props = defineProps({
 });
 const theTweet = props.tweet
 
+
+
 const getCurrentUserId = () => {
     // return sessionStorage.getItem('iduser');
     return 1;
@@ -26,20 +28,27 @@ const fetchLike = async () => {
     return await likeStore.liked(getCurrentUserId(), theTweet.id);
 };
 
-
 fetchLike().then(like => {
     if (like) {
-        textLike.value = 'unlike'
+        textLike.value = '♡'
     }
     else
-        textLike.value = 'like'
+        textLike.value = '♥'
+});
+var nbLike = ref(0);
+const fetchCountLike = async () => {
+    return await likeStore.getLikesById(theTweet.id);
+};
+
+fetchCountLike().then(alllLikes => {
+    nbLike = alllLikes.length
 });
 
 const fetchUser = async () => {
     return await userStore.getUserById(theTweet.user_id);
 };
 
-const leUser = ref("");
+var leUser = ref("");
 fetchUser().then(usr => {
     leUser.value = usr
 });
@@ -48,7 +57,7 @@ const fetchComments = async () => {
     return await commentStore.getCommentByIdTweet(theTweet.id);
 };
 
-const lesCom = ref([]);
+var lesCom = ref([]);
 fetchComments().then(comments => {
     lesCom.value = comments
 });
@@ -57,12 +66,14 @@ const commentaire = ref("");
 
 const toggleLike = () => {
 
-    if (textLike.value == 'like') {
-        likeStore.addLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });//consolelog
-        textLike.value = 'unlike';
+    if (textLike.value == '♥') {
+        likeStore.addLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });
+        textLike.value = '♡';
+        nbLike.value = nbLike.value + 1;
     } else {
-        likeStore.removeLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });//consolelog
-        textLike.value = 'like';
+        likeStore.removeLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });
+        textLike.value = '♥';
+        nbLike.value = nbLike.value - 1;
     }
 };
 
@@ -93,9 +104,10 @@ const postCommentaire = () => {
             <p class="date">Posté le {{ tweet.created_at }}</p>
         </div>
         <div id="interact">
+            <p id="likes"> {{ nbLike }} ♥</p>
             <button id="button-like" @click="toggleLike">{{ textLike }}</button>
-            <input type="text" v-model="commentaire" placeholder="Commentaire...">
-            <button @click="postCommentaire">Poster</button>
+            <input type="text" id="inputCom" v-model="commentaire" placeholder="Commentaire...">
+            <button id="postCom" @click="postCommentaire">Poster</button>
         </div>
         <Comment v-for="comment in lesCom" :key="comment.id" :comment="comment" />
     </div>
@@ -133,23 +145,49 @@ const postCommentaire = () => {
     align-items: center;
 }
 
-.like button {
-    padding: 8px 20px;
-    background-color: #1da1f2;
+#likes {
+    margin-right: 10px;
+}
+
+#button-like {
+    background-color: #007bff;
     color: white;
     border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#button-like:hover {
+    background-color: #0056b3;
+}
+
+#inputCom {
+    flex: 1;
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#postCom {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.like button:hover {
-    background-color: #0b7bc6;
+#postCom:hover {
+    background-color: #218838;
 }
 
-#interact input[type="text"],
-#interact button {
-    margin-left: 10px;
+#likes {
+    color: #333;
 }
+
 
 .date {
     color: #666;

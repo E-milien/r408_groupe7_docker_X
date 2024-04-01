@@ -2,31 +2,21 @@
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../store/user';
 import { ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink } from 'vue-router'
 
-const userStore = useUserStore();
+
 const router = useRouter();
 
 const username = ref('');
-const pwd = ref('');
+const password = ref('');
 
-const login = async () => {
-    const credentials = {
-        email: username.value,
-        pwd: pwd.value
-    };
+const login = () => {
 
-    console.log('Tentative de connexion avec :', credentials);
-
-    try {
-        const response = await userStore.logUser(credentials);
-        console.log(response);
-        router.push('/');
-    } catch (error) {
-        console.error('Erreur de connexion :', error);
-        // Gérer les erreurs de connexion ici (par exemple, afficher un message d'erreur à l'utilisateur)
-    }
+    console.log('Connexion avec :', username.value, password.value);
+    //sessionStorage.setItem('iduser', 'valeur');
+    router.push('/');
 };
+
 </script>
 
 
@@ -41,8 +31,8 @@ const login = async () => {
                     <input type="text" id="username" v-model="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Mot de passe</label>
-                    <input type="password" id="pwd" v-model="pwd" required>
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" v-model="password" required>
                 </div>
                 <button type="submit">Se connecter</button>
             </form>
@@ -54,60 +44,4 @@ const login = async () => {
     </div>
 </template>
 
-<style scoped>
-.login-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.login-container {
-    width: 400px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #1da1f2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0b7bc6;
-}
-
-.signup-link {
-    margin-top: 20px;
-}
-
-.signup-link p {
-    text-align: center;
-}
-
-.signup-link p RouterLink {
-    color: #1da1f2;
-}
-</style>
+<style scoped></style>

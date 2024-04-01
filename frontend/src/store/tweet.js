@@ -13,7 +13,7 @@ export const useTweetStore = defineStore('tweet', () => {
     async function addTweet(tweet) {
         allTweet.value.push(tweet)
 
-        const response = await fetch(`http://localhost:5020/api/postTweet`, {
+        const response = await fetch(`http://localhost:5020/api/createtweet`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(tweet)

@@ -35,11 +35,10 @@ class LikeController extends Controller
 
     public function delete($userId, $tweetId)
     {
-        $like = Like::where('user_id', $userId)->where('tweet_id', $tweetId)->firstOrDefault();
+        $like = Like::where('user_id', $userId)->where('tweet_id', $tweetId)->delete();
 
         if ($like) {
-            $like->delete();
-            return response()->json(['message' => 'Like supprimé avec succès']);
+            return response()->json(['message' => 'Like supprimé avec succès'], 200);
         } else {
             return response()->json(['error' => 'Like non trouvé'], 404);
         }

@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\Tweet;
-use App\Models\User; 
+use App\Models\User;
 
 class AuthController extends Controller
 {
     public function authenticate(Request $request)
     {
-     
+
         $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -36,31 +36,16 @@ class AuthController extends Controller
 
         // Vous pouvez retourner une réponse JSON ou rediriger l'utilisateur vers une autre page
         return response()->json(['message' => 'Utilisateur enregistré avec succès'], 201);
-        
-      
     }
 
-    public function login(Request $request ){
-        $request->validate([
-            'email' =>'required',
-            'pwd' => 'required|string',
-        ]);
+    public function login(Request $request)
+    {
+        $user =  User::where('email', $request->email)->first();
 
-        $credentials = $request->only('email', 'pwd');
-
-        
-    if (Auth::attempt($credentials)) {
-        $user = Auth::user();
-
-        // Authentification réussie, retourner une réponse JSON avec un message de succès
-        return response()->json(['message' => 'Authentification réussie avec id','user_id'=>$user->id], 200);
-    } else {
-        // Authentification échouée, retourner une réponse JSON avec un message d'erreur
-        return response()->json(['message' => 'Email ou mot de passe incorrect'], 401);
+        if ($user !== null && Hash::check($request->pwd, $user->pwd)) {
+            return response()->json(['message' => 'Authentification réussie avec id', 'user_id' => $user->id], 200);
+        } else {
+            return response()->json(['message' => 'Email ou mot de passe incorrect'], 401);
+        }
     }
-
-
-
 }
-}
-

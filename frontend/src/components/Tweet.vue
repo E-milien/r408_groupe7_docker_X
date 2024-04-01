@@ -20,8 +20,7 @@ const theTweet = props.tweet
 
 
 const getCurrentUserId = () => {
-    // return sessionStorage.getItem('iduser');
-    return 1;
+    return sessionStorage.getItem('iduser');
 };
 
 const fetchLike = async () => {

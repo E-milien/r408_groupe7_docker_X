@@ -8,8 +8,7 @@ const tweetStore = useTweetStore();
 const tweetText = ref('');
 
 const getCurrentUserId = () => {
-    // return sessionStorage.getItem('iduser');
-    return 1;
+    return sessionStorage.getItem('iduser');
 };
 
 const postTweet = async () => {

@@ -15,5 +15,7 @@ class Comment extends Model
         'comment_text',
         'user_id',
         'tweet_id',
+        'created_at'
     ];
+    public $timestamps = false;
 }

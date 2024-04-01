@@ -28,6 +28,7 @@ Route::delete('/likes/{userId}/{tweetId}', [LikeController::class, 'delete']);
 Route::post('/postLike', [LikeController::class, 'store']);
 Route::get('likesById/{id}', [LikeController::class, 'getByIdLike']);
 Route::get('/getLikes', [LikeController::class, 'getLikes']);
+Route::get('/liked/{userId}/{tweetId}', [LikeController::class, 'getLiked']);
 
 Route::get('/comments', [CommentController::class, 'getComment']);
 Route::get('/comments/getById/{id}', [CommentController::class, 'getById']);

@@ -21,7 +21,7 @@ document.title = "Tweeter";
 </script>
 
 <template>
-  <div class="body" :class="{ 'dark-mode': isDarkMode }">
+  <div :class="{ 'dark-mode': isDarkMode }">
     <header :class="{ 'dark-mode': isDarkMode }">
       <h1>Twitter</h1>
       <button @click="toggleDarkMode">{{ isDarkMode ? 'Mode Jour' : 'Mode Nuit' }}</button>
@@ -38,10 +38,16 @@ document.title = "Tweeter";
 
 
 <style scoped>
-body,
-.body {
+#app {
   background-color: white;
-  width: 100%;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: white;
+  width: max-content;
   margin: 0;
   padding: 0;
 }

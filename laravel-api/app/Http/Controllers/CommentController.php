@@ -30,15 +30,15 @@ class CommentController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'comment_text' => 'required',
-            'user_id' => 'required|exists:users,id',
-            'tweet_id' => 'required|exists:tweets,id',
-        ]);
+        $comment = new Comment();
+        $comment->user_id = $request->user_id;
+        $comment->tweet_id = $request->tweet_id;
+        $comment->comment_text = $request->comment_text;
+        $comment->created_at = $request->created_at;
+        $comment->save();
 
-        $comment = Comment::create($request->all());
 
-        return response()->json($comment, 201);
+        return response()->json(['message' => 'Commentaire posté avec succès'], 201);
     }
 
     public function delete($id)

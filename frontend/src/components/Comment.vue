@@ -27,6 +27,7 @@ fetchUser().then(usr => {
     <div class="leCommentaire">
         <h3>@{{ leUser.username }}</h3>
         <p>{{ comment.comment_text }}</p>
+        <p class="date">Posté le {{ comment.created_at }}</p>
     </div>
 </template>
 
@@ -40,10 +41,17 @@ fetchUser().then(usr => {
 .leCommentaire h3 {
     margin: 0;
     font-size: 16px;
+    color: #333;
 }
 
 .leCommentaire p {
     margin: 0;
     color: #333;
+}
+
+.date {
+    color: #666;
+    margin: 0;
+    text-align: right;
 }
 </style>

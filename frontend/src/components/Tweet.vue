@@ -104,7 +104,7 @@ const postCommentaire = () => {
             <p class="date">Posté le {{ tweet.created_at }}</p>
         </div>
         <div id="interact">
-            <p id="likes"> {{ nbLike }} ♥</p>
+            <p id="likes"> {{ nbLike }}♥</p>
             <button id="button-like" @click="toggleLike">{{ textLike }}</button>
             <input type="text" id="inputCom" v-model="commentaire" placeholder="Commentaire...">
             <button id="postCom" @click="postCommentaire">Poster</button>

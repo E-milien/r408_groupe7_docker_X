@@ -1,11 +1,13 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { useUserStore } from '../store/user';
+import { useLoginStore } from '../store/login';
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router'
 
 
 const router = useRouter();
+
+const loginStore = useLoginStore();
 
 const username = ref('');
 const password = ref('');
@@ -19,12 +21,12 @@ const login = async () => {
     console.log('Tentative de connexion avec :', credentials);
 
     try {
-        const response = await userStore.logUser(credentials);
-        console.log(response);
+        const reponse = await loginStore.logUser(credentials);
+        console.log(reponse);
+        sessionStorage.setItem('iduser', reponse.user_id)
         router.push('/');
     } catch (error) {
         console.error('Erreur de connexion :', error);
-        // Gérer les erreurs de connexion ici (par exemple, afficher un message d'erreur à l'utilisateur)
     }
 };
 

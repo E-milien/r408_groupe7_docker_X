@@ -16,14 +16,14 @@ watch(isDarkMode, (value) => {
     document.body.classList.remove('dark-mode');
   }
 });
-
+const blabla = sessionStorage.getItem('iduser');
 document.title = "Twitter";
 </script>
 
 <template>
   <div :class="{ 'dark-mode': isDarkMode }">
     <header :class="{ 'dark-mode': isDarkMode }">
-      <h1>Twitter</h1>
+      <h1>Twitter {{ blabla }}</h1>
       <button @click="toggleDarkMode">{{ isDarkMode ? 'Mode Jour' : 'Mode Nuit' }}</button>
       <nav>
         <RouterLink to="/">Accueil</RouterLink>

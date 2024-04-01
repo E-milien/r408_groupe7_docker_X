@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\RegisterController;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/tweet", [TweetController::class, 'getTweet']);
 Route::Post("/createtweet", [TweetController::class, 'createTweet']);
-Route::post('/register', [RegisterController::class, 'authenticate']);
+Route::post('/register', [AuthController::class, 'authenticate']);
 
 Route::delete('/likes/{userId}/{tweetId}', [LikeController::class, 'delete']);
 Route::post('/postLike', [LikeController::class, 'store']);

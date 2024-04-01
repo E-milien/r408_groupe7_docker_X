@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 use App\Models\Tweet;
 use App\Models\User; 
 
-class RegisterController extends Controller
+class AuthController extends Controller
 {
     public function authenticate(Request $request)
     {
@@ -33,6 +36,29 @@ class RegisterController extends Controller
 
         // Vous pouvez retourner une réponse JSON ou rediriger l'utilisateur vers une autre page
         return response()->json(['message' => 'Utilisateur enregistré avec succès'], 201);
+        
       
     }
+
+    public function login(Request $request ){
+        $request->validate([
+            'email' =>'required',
+            'pwd' => 'required|string',
+        ]);
+
+        $credentials = $request->only('email', 'pwd');
+
+        
+    if (Auth::attempt($credentials)) {
+        // Authentification réussie, retourner une réponse JSON avec un message de succès
+        return response()->json(['message' => 'Authentification réussie'], 200);
+    } else {
+        // Authentification échouée, retourner une réponse JSON avec un message d'erreur
+        return response()->json(['message' => 'Email ou mot de passe incorrect'], 401);
+    }
+
+
+
 }
+}
+

@@ -17,6 +17,13 @@ class LikeController extends Controller
         return Like::where('tweet_id', $id)->get();
     }
 
+    public function getLiked($user_id, $tweet_id)
+    {
+        return Like::where('tweet_id', $tweet_id)
+            ->where('user_id', $user_id)
+            ->get();
+    }
+
     public function store(Request $request)
     {
         $request->validate([

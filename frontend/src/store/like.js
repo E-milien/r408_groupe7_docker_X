@@ -11,6 +11,19 @@ export const useLikeStore = defineStore('like', () => {
         return response
     }
 
+    async function liked(user_id, tweet_id) {
+        try {
+            const response = await fetch(`http://localhost:5020/api/liked/${user_id}/${tweet_id}`, { method: 'GET' });
+            if (await response.json() != "")
+                return true;
+            else
+                return false;
+        } catch (error) {
+
+            return false;
+        }
+    }
+
     async function getLikesById(id) {
         const response = await fetch(`http://localhost:5020/api/likesById/${id}`, { method: 'GET' })
 
@@ -19,8 +32,6 @@ export const useLikeStore = defineStore('like', () => {
     }
 
     async function addLike(like) {
-        allLike.value.push(like)
-
         const response = await fetch(`http://localhost:5020/api/postLike`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
@@ -35,5 +46,5 @@ export const useLikeStore = defineStore('like', () => {
         return response.ok
     }
 
-    return { getLikes, getLikesById, removeLike, addLike, allLike }
+    return { getLikes, getLikesById, liked, removeLike, addLike, allLike }
 })

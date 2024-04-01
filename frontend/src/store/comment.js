@@ -26,8 +26,6 @@ export const useCommentStore = defineStore('comment', () => {
     }
 
     async function addComment(comment) {
-        allComment.value.push(comment)
-
         const response = await fetch(`http://localhost:5020/api/postComment`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },

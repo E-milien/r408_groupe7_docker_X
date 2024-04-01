@@ -1,22 +1,34 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import { useUserStore } from '../store/user';
 import { ref } from 'vue';
-import { RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router';
 
-
+const userStore = useUserStore();
 const router = useRouter();
 
 const username = ref('');
-const password = ref('');
+const pwd = ref('');
 
-const login = () => {
+const login = async () => {
+    const credentials = {
+        email: username.value,
+        pwd: pwd.value
+    };
 
-    console.log('Connexion avec :', username.value, password.value);
-    //sessionStorage.setItem('iduser', 'valeur');
-    router.push('/');
+    console.log('Tentative de connexion avec :', credentials);
+
+    try {
+        const response = await userStore.logUser(credentials);
+        console.log(response);
+        router.push('/');
+    } catch (error) {
+        console.error('Erreur de connexion :', error);
+        // Gérer les erreurs de connexion ici (par exemple, afficher un message d'erreur à l'utilisateur)
+    }
 };
-
 </script>
+
 
 <template>
 
@@ -29,8 +41,8 @@ const login = () => {
                     <input type="text" id="username" v-model="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" v-model="password" required>
+                    <label for="pwd">Mot de passe</label>
+                    <input type="password" id="pwd" v-model="pwd" required>
                 </div>
                 <button type="submit">Se connecter</button>
             </form>

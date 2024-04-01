@@ -23,12 +23,13 @@ use Illuminate\Support\Facades\Route;
 Route::get("/tweet", [TweetController::class, 'getTweet']);
 Route::Post("/createtweet", [TweetController::class, 'createTweet']);
 Route::post('/registerNew', [AuthController::class, 'authenticate']);
+Route::post('/login', [AuthController::class,'login']);
 
 Route::delete('/likes/{userId}/{tweetId}', [LikeController::class, 'delete']);
 Route::post('/postLike', [LikeController::class, 'store']);
 Route::get('likesById/{id}', [LikeController::class, 'getByIdLike']);
 Route::get('/getLikes', [LikeController::class, 'getLikes']);
-Route::get('/liked/{userId}/{tweetId}', [LikeController::class, 'getLiked']);
+Route::get('/liked/{userId}credentials, user) {tId}', [LikeController::class, 'getLiked']);
 
 Route::get('/comments', [CommentController::class, 'getComment']);
 Route::get('/comments/getById/{id}', [CommentController::class, 'getById']);

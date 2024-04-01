@@ -28,5 +28,14 @@ export const useUserStore = defineStore('user', () => {
         })
         return response.ok
     }
-    return { getUsers, getUserById,addUser, allUser }
+
+    async function logUser(credentials) {
+        const response = await fetch(`http://localhost:5020/api/login`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(credentials)
+        })
+        return response.json()
+    }
+    return { getUsers, getUserById,addUser, logUser,allUser }
 })

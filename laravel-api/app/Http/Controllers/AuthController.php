@@ -50,8 +50,10 @@ class AuthController extends Controller
 
         
     if (Auth::attempt($credentials)) {
+        $user = Auth::user();
+
         // Authentification réussie, retourner une réponse JSON avec un message de succès
-        return response()->json(['message' => 'Authentification réussie'], 200);
+        return response()->json(['message' => 'Authentification réussie avec id','user_id'=>$user->id], 200);
     } else {
         // Authentification échouée, retourner une réponse JSON avec un message d'erreur
         return response()->json(['message' => 'Email ou mot de passe incorrect'], 401);

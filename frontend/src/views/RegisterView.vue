@@ -22,7 +22,7 @@ const register = async () => {
         lastname: lastname.value,
         username: username.value,
         email: email.value,
-        password: password.value
+        pwd: password.value
     };
     console.log('Nouvel utilisateur :', newUser);
     await userStore.addUser(newUser); // Appel de la méthode addUser du magasin

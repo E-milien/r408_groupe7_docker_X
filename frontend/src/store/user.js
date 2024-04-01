@@ -21,7 +21,7 @@ export const useUserStore = defineStore('user', () => {
         allUser.value.push(user)
 
 
-        const response = await fetch(`http://localhost:5020/api/register`, {
+        const response = await fetch(`http://localhost:5020/api/registerNew`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user)

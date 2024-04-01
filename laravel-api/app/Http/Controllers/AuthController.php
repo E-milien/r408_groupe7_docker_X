@@ -28,7 +28,7 @@ class AuthController extends Controller
         // Créer un nouvel utilisateur et hasher le mot de passe
         $user = new User();
         $user->firstname = $request->firstname;
-        $user->lastname = $request->name;
+        $user->lastname = $request->lastname;
         $user->username = $request->username;
         $user->email = $request->email;
         $user->pwd = Hash::make($request->pwd);

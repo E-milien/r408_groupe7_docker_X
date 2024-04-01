@@ -10,11 +10,22 @@ const router = useRouter();
 const username = ref('');
 const password = ref('');
 
-const login = () => {
+const login = async () => {
+    const credentials = {
+        email: username.value,
+        pwd: password.value
+    };
 
-    console.log('Connexion avec :', username.value, password.value);
-    //sessionStorage.setItem('iduser', 'valeur');
-    router.push('/');
+    console.log('Tentative de connexion avec :', credentials);
+
+    try {
+        const response = await userStore.logUser(credentials);
+        console.log(response);
+        router.push('/');
+    } catch (error) {
+        console.error('Erreur de connexion :', error);
+        // Gérer les erreurs de connexion ici (par exemple, afficher un message d'erreur à l'utilisateur)
+    }
 };
 
 </script>
@@ -32,7 +43,7 @@ const login = () => {
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" id="password" v-model="password" required>
+                    <input type="password" id="pwd" v-model="password" required>
                 </div>
                 <button type="submit">Se connecter</button>
             </form>

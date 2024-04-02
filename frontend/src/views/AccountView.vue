@@ -5,8 +5,11 @@ import { useUserStore } from '../store/user';
 
 const userStore = useUserStore();
 const router = useRouter();
+const tweetStore = useTweetStore(); // Initialisez le store des tweets
+
 const variableUser = ref(sessionStorage.getItem('iduser'));
 var leUser = ref("");
+var userTweets = ref([]);
 
 const fetchUser = async () => {
   if (variableUser.value !== null) {
@@ -21,6 +24,8 @@ fetchUser().then(usr => {
     console.log(leUser.value)
 });
 
+
+
 if (variableUser.value === null) {
   router.push('/login'); 
 }
@@ -30,6 +35,7 @@ if (variableUser.value === null) {
   <div >
 
    <p> {{ leUser.username }}</p>
+   <p> {{ userTweets }}</p>
   </div>
  
 </template>

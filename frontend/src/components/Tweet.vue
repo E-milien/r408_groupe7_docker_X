@@ -98,6 +98,8 @@ const postCommentaire = () => {
 
     <div id="leTweet">
         <h3>@{{ leUser.username }}</h3>
+        <img :src="'../assets/' + leUser.profile_pic" alt="">
+
         <div id="main">
             <p class="text">{{ tweet.tweet_text }}</p>
             <p class="date">Posté le {{ tweet.created_at }}</p>

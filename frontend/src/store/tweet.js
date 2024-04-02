@@ -7,6 +7,8 @@ export const useTweetStore = defineStore('tweet', () => {
         const response = await fetch('http://localhost:5020/api/tweet', { method: 'GET' })
 
         allTweet.value = await response.json()
+        allTweet.value.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))//Trier par date de creation
+
         return response.ok
     }
 

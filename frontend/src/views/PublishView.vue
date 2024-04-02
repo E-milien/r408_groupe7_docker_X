@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { ref ,onMounted} from 'vue';
 import { useTweetStore } from '../store/tweet';
 
 const router = useRouter();
@@ -11,6 +11,9 @@ const getCurrentUserId = () => {
     return sessionStorage.getItem('iduser');
 };
 
+onMounted(async () => {
+    await tweetStore.getTweets();
+});
 const postTweet = async () => {
     try {
         await tweetStore.addTweet({ 'user_id': getCurrentUserId(), 'tweet_text': tweetText.value });

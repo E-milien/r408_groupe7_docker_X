@@ -24,7 +24,6 @@ tweetStore.getTweets()
 
 section{
     width: 40%;
-margin-left: auto;
 margin-right: 200px;
 }
 .publish-button {

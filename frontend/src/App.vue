@@ -35,6 +35,7 @@ document.title = "Twitter";
       <h1>Twitter</h1>
       <button @click="toggleDarkMode">{{ isDarkMode ? 'Mode Jour' : 'Mode Nuit' }}</button>
       <nav>
+
         <RouterLink to="/">Accueil</RouterLink>
         <RouterLink to="/register">Créer un compte</RouterLink>
         <RouterLink to="/login">Se connecter</RouterLink>

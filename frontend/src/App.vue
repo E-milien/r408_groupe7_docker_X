@@ -38,6 +38,8 @@ document.title = "Twitter";
         <RouterLink to="/">Accueil</RouterLink>
         <RouterLink to="/register">Créer un compte</RouterLink>
         <RouterLink to="/login">Se connecter</RouterLink>
+        <RouterLink to="/account">Mon compte</RouterLink>
+
       </nav>
       <h1>{{ connected }}</h1>
     </header>

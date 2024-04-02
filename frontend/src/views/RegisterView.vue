@@ -34,6 +34,8 @@ const register = async () => {
 
     <div class="signup-page">
         <div class="signup-container">
+            <img src="../assets/twtter.png" alt="twitter logo">
+
             <h1>S'inscrire à Twitter</h1>
             <form @submit.prevent="register">
                 <div class="form-group">
@@ -67,59 +69,93 @@ const register = async () => {
 </template>
 
 <style scoped>
+img{
+    width: 20%;
+    height: 20%;
+}
+h1{
+    color: black;
+    font-family: 'Segoe UI',  Geneva, Arial, Helvetica, sans-serif, sans-serif;
+
+}
+label{
+
+    color: black;
+}
+p{
+    color: grey;
+}
 .signup-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  background-color: #f5f8fa;
 }
 
 .signup-container {
-    width: 400px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: 420px;
+  padding: 20px;
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 label {
-    display: block;
-    font-weight: bold;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccd6dd;
+  border-radius: 5px;
+  width: calc(100% - 20px); 
+
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #1da1f2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  background-color: #1da1f2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: #0b7bc6;
+  background-color: #0b7bc6;
 }
 
 .login-link {
-    margin-top: 20px;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .login-link p {
-    text-align: center;
+  font-size: 14px;
 }
 
 .login-link p RouterLink {
-    color: #1da1f2;
+  color: #1da1f2;
+  text-decoration: none;
+}
+
+.login-link p RouterLink:hover {
+  text-decoration: underline;
 }
 </style>

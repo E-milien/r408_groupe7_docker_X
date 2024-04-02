@@ -15,14 +15,7 @@ class AuthController extends Controller
     {
 
         $request->validate([
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users',
-            'bio' => 'nullable|string',
-            'email' => 'required|string|email|max:255|unique:users',
-            'pwd' => 'required|string|min:6', // Exemple de règle pour la validation du mot de passe
-            'birthdate' => 'nullable|date',
-            'profile_pic' => 'nullable|string',
+            
         ]);
 
         // Créer un nouvel utilisateur et hasher le mot de passe

@@ -18,6 +18,14 @@ class TweetController extends Controller
         return Tweet::findOrFail($id);
     }
 
+    public function getByIdUser(Request $request, $id)
+    {
+        $tweets = Tweet::where('user_id', $id)->get();
+
+        return response()->json($tweets);
+
+    }
+
 
     public function createTweet(Request $request)
     {

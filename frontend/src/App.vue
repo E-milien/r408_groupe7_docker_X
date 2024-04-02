@@ -30,6 +30,7 @@ document.title = "Twitter";
 </script>
 
 <template>
+  <aside class="header-aside">
   <div :class="{ 'dark-mode': isDarkMode }">
     <header :class="{ 'dark-mode': isDarkMode }">
       <h1>Twitter</h1>
@@ -47,6 +48,7 @@ document.title = "Twitter";
     <RouterView />
 
   </div>
+  </aside>
 </template>
 
 
@@ -70,12 +72,18 @@ body.dark-mode,
   background-color: #444444;
 }
 
+.header-section {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+}
 header,
 .tweet-list {
   width: 100%;
   margin: 0 auto;
   padding: 20px;
 }
+
 
 header {
   background-color: #1da1f2;

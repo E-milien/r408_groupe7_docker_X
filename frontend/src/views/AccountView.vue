@@ -1,7 +1,10 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { ref ,onMounted} from 'vue';
 import { useUserStore } from '../store/user';
+import { useTweetStore } from '../store/tweet';
+import Tweet from '../components/Tweet.vue'
+
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -13,7 +16,6 @@ var userTweets = ref([]);
 
 const fetchUser = async () => {
   if (variableUser.value !== null) {
-    console.log(variableUser.value)
     return await userStore.getUserById(variableUser.value);
   }
 }
@@ -21,22 +23,31 @@ const fetchUser = async () => {
 
 fetchUser().then(usr => {
     leUser.value = usr
-    console.log(leUser.value)
 });
 
 
+const fetchUserTweets = async () => {
+  return await tweetStore.getTweetsByUserId(variableUser.value)
+};
 
-if (variableUser.value === null) {
-  router.push('/login'); 
-}
+
+fetchUserTweets().then(usr=>{
+  userTweets.value=usr
+
+  console.log(userTweets.value)
+});
+
+
+onMounted(() => {
+  if (variableUser.value===null) {
+    router.push('/login'); // Rediriger vers la page de connexion si aucun utilisateur n'est connecté
+  } 
+});
 </script>
 
 <template>
-  <div >
+    <Tweet v-for="tweet in userTweets" :key="tweet.id" :tweet="tweet" />
 
-   <p> {{ leUser.username }}</p>
-   <p> {{ userTweets }}</p>
-  </div>
  
 </template>
 

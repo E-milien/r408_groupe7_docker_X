@@ -42,3 +42,6 @@ Route::delete('/comments/{id}', [CommentController::class, 'delete']);
 //Route::put('/users/{id}', [UserController::class, 'updateUser']);
 Route::get("/users/getById/{id}", [UserController::class, 'getById']);
 Route::get("/users", [UserController::class, 'getUser']);
+
+Route::get("/tweet/getByIdTweet/{id}", [TweetController::class, 'getByIdUser']);
+

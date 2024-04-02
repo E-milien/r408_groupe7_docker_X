@@ -47,10 +47,12 @@ const fetchUser = async () => {
     return await userStore.getUserById(theTweet.user_id);
 };
 
-var leUser = ref("");
+ var leUser = ref("");
 fetchUser().then(usr => {
     leUser.value = usr
 });
+console.log(leUser.value.profile_pic)
+
 
 const fetchComments = async () => {
     return await commentStore.getCommentByIdTweet(theTweet.id);
@@ -92,13 +94,23 @@ const postCommentaire = () => {
     commentStore.addComment(leCom)
     commentaire.value = "";
 };
+
+const getUserProfilePicUrl = () => {
+    // Vérifiez si leUser.value est défini pour éviter une erreur si la valeur n'est pas encore chargée
+    if (leUser.value != null) {
+        console.log(leUser.profile_pic)
+        return '../assets/'+leUser.value.profile_pic;
+    } else {
+        return 'vide'; // ou une URL par défaut si nécessaire
+    }
+};
 </script>
 
 <template>
 
     <div id="leTweet">
         <h3>@{{ leUser.username }}</h3>
-        <img :src="'../assets/' + leUser.profile_pic" alt="">
+        <img :src="getUserProfilePicUrl()" alt="profile_picture">
 
         <div id="main">
             <p class="text">{{ tweet.tweet_text }}</p>

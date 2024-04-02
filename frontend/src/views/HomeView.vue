@@ -22,6 +22,11 @@ tweetStore.getTweets()
     margin-top: 20px;
 }
 
+section{
+    width: 40%;
+margin-left: auto;
+margin-right: 200px;
+}
 .publish-button {
     position: fixed;
     bottom: 20px;

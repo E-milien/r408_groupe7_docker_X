@@ -4,6 +4,8 @@ import { ref, defineProps } from 'vue';
 import { useUserStore } from '../store/user';
 import { useCommentStore } from '../store/comment';
 import { useLikeStore } from '../store/like';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 const userStore = useUserStore();
 const commentStore = useCommentStore();
@@ -24,15 +26,22 @@ const getCurrentUserId = () => {
 };
 
 const fetchLike = async () => {
-    return await likeStore.liked(getCurrentUserId(), theTweet.id);
+    const currentId = getCurrentUserId();
+    if (currentId !== "") {
+        if (currentId > 0) {
+            return await likeStore.liked(currentId, theTweet.id)
+        }
+        else
+            return false;
+    }
 };
 
 fetchLike().then(like => {
     if (like) {
-        textLike.value = '♡'
+        textLike.value = '♥'
     }
     else
-        textLike.value = '♥'
+        textLike.value = '♡'
 });
 var nbLike = ref(0);
 const fetchCountLike = async () => {
@@ -47,7 +56,7 @@ const fetchUser = async () => {
     return await userStore.getUserById(theTweet.user_id);
 };
 
- var leUser = ref("");
+var leUser = ref("");
 fetchUser().then(usr => {
     leUser.value = usr
 });
@@ -66,16 +75,22 @@ fetchComments().then(comments => {
 const commentaire = ref("");
 
 const toggleLike = () => {
-
-    if (textLike.value == '♥') {
-        likeStore.addLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });
-        textLike.value = '♡';
-        nbLike.value = nbLike.value + 1;
-    } else {
-        likeStore.removeLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });
-        textLike.value = '♥';
-        nbLike.value = nbLike.value - 1;
+    const currentId = getCurrentUserId();
+    if (currentId !== "") {
+        if (currentId > 0) {
+            if (textLike.value == '♡') {
+                likeStore.addLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });
+                textLike.value = '♥';
+                nbLike.value = nbLike.value + 1;
+            } else {
+                likeStore.removeLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });
+                textLike.value = '♡';
+                nbLike.value = nbLike.value - 1;
+            }
+        }
     }
+    else
+        router.push('/login')
 };
 
 const postCommentaire = () => {
@@ -89,7 +104,6 @@ const postCommentaire = () => {
     const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
     const leCom = { 'comment_text': commentaire.value, 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id, 'created_at': formattedDate }
-    console.log(leCom)
     lesCom.value.push(leCom)
     commentStore.addComment(leCom)
     commentaire.value = "";
@@ -99,7 +113,7 @@ const getUserProfilePicUrl = () => {
     // Vérifiez si leUser.value est défini pour éviter une erreur si la valeur n'est pas encore chargée
     if (leUser.value != null) {
         console.log(leUser.profile_pic)
-        return '../assets/'+leUser.value.profile_pic;
+        return '../assets/' + leUser.value.profile_pic;
     } else {
         return 'vide'; // ou une URL par défaut si nécessaire
     }

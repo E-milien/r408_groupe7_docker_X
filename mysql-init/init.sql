@@ -83,14 +83,14 @@ COLLATE=utf8mb4_general_ci;
 
 INSERT INTO users (firstname, lastname, username, bio, email, pwd, birthdate, profile_pic) 
 VALUES -- tout les mdp sont : coucou
-  ('John', 'Doe', 'mechantBTC', 'Developer', 'john@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1990-01-01', 'src/assets/avatar.jpg'),
-  ('Quentin', 'laval', 'lionel_pessi', 'Designer', 'alice@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1992-05-15', 'src/assets/avatar.jpg'),
-  ('Emily', 'Johnson', 'loserEnP3', 'Writer', 'emily@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1988-08-20', 'src/assets/avatar.jpg'),
-  ('Michael', 'Brown', 'farfadetMalicieux', 'Photographer', 'michael@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1985-04-12', 'src/assets/avatar.jpg'),
-  ('Sophia', 'Wilson', 'ClassiquePosey', 'Artist', 'sophia@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1995-10-30', 'src/assets/avatar.jpg');
+  ('John', 'Doe', 'mechantBTC', 'Developer', 'john@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1990-01-01', 'src/assets/pp/oldman.jpg'),
+  ('Quentin', 'laval', 'lionel_pessi', 'Designer', 'alice@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1992-05-15', 'src/assets/pp/pessi.jpg'),
+  ('Emily', 'Johnson', 'gameuseEnP3', 'Writer', 'emily@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1988-08-20', 'src/assets/pp/duckface.jpg'),
+  ('Michael', 'Brown', 'farfadetMalicieux', 'Photographer', 'michael@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1985-04-12', 'src/assets/pp/default.png'),
+  ('Sophia', 'Wilson', 'ClassiquePosey', 'Artist', 'sophia@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1995-10-30', 'src/assets/pp/default.png');
 
 INSERT INTO tweets (user_id, tweet_text, created_at) 
-VALUES 
+VALUES    
   (1, 'Le bitcoin est monté je suis riche!!', '2024-03-31 08:12:00'),
   (2, 'Hier jai dockerisé mon site, grave dure ! pas vrai la team ?', '2024-04-01 15:24:00'),
   (3, 'Fock jai vendu mes BTC avant que ca monte..', '2024-03-29 18:37:00'),

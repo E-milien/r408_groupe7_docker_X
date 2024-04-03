@@ -63,7 +63,7 @@ onMounted(() => {
     <header>
 
       <div class="profile-pic">
-        <img src="../assets/avatar.jpg" alt="">
+        <img src="../assets/pp/default.png" alt="">
         <p id="username"><b>{{ leUser.firstname }}   {{ leUser.lastname }}</b></p>
         <p id="arobase-user">@{{ leUser.username }}</p>
         <p id="date">🗓A rejoint Twitter le {{ formatDate(leUser.birthdate) }}</p>

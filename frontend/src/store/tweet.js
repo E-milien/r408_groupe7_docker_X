@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 // Définition du store des tweets
 export const useTweetStore = defineStore('tweet', () => {
-    const allTweet = ref(null)
+    const allTweet = ref([])
 
     // Fonction pour récupérer tous les tweets
     async function getTweets() {

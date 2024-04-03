@@ -6,13 +6,13 @@ import { ref, computed } from 'vue';
 const tweetStore = useTweetStore()
 tweetStore.getTweets()
 
-const filter=ref("")
+const filtre=ref("")
 
-/*const filteredTweets=computed(()=>{
-    var tmp = tweetStore.allTweet.filter(tweet=>tweet.tweet_text.toLowerCase().indexOf(filter.value.toLowerCase())!=-1)
+const filteredTweets=computed(()=>{
+    var tmp = tweetStore.allTweet.filter(tweet=>tweet.tweet_text.toLowerCase().indexOf(filtre.value.toLowerCase())!=-1)
     console.log(tmp)
   return tmp
-})*/
+})
 </script>
 
 <template>
@@ -20,10 +20,10 @@ const filter=ref("")
     <section>
         <div class="container">
             <div class="search-bar">
-                <input id="rechercher" type="text" placeholder="Rechercher sur Twitter" v-model="filter">
+                <input id="rechercher" type="text" placeholder="Rechercher sur Twitter" v-model="filtre">
             </div>
             <div class="tweet-list" :class="{ 'dark-mode': isDarkMode }">
-                <Tweet v-for="tweet in tweetStore.allTweet" v-bind:key="tweet.id" :tweet="tweet" />
+                <Tweet v-for="tweet in filteredTweets" v-bind:key="tweet.id" :tweet="tweet" />
             </div>
         </div>
     </section>
@@ -39,10 +39,10 @@ const filter=ref("")
 .search-bar {
   position: fixed;
   top: 0;
-  left: 50%;
+  left: 60%;
   transform: translateX(-50%);
   width: calc(100% - 40px); /* largeur de la barre de recherche */
-  max-width: 600px; /* largeur maximale */
+  max-width: 700px; /* largeur maximale */
   background-color: #fff;
   padding: 15px;
   border-radius: 25px;
@@ -51,7 +51,7 @@ const filter=ref("")
 }
 
 #rechercher {
-  width: 100%;
+  width: 150%;
   border: none;
   outline: none;
   font-size: 16px;

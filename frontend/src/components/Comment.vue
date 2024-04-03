@@ -63,7 +63,7 @@ img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: solid 3px black;
+    border: solid 1px black;
     margin-right: 10px;
 }
 

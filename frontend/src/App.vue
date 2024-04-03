@@ -36,9 +36,10 @@ document.title = "Twitter";
 
     <header class="header">
       <h1>Twitter</h1>
-      <img src="./assets/twtter.png" alt="twitter logo">
       <!-- <button @click="toggleDarkMode">{{ isDarkMode ? 'Mode Jour' : 'Mode Nuit' }}</button> -->
       <nav>
+        <img src="./assets/twtter.png" alt="twitter logo">
+
         <p><RouterLink to="/" class="nav-link"><i class="fas fa-home"></i>Home</RouterLink></p>
         <p><RouterLink to="/register" class="nav-link"> Créer un compte</RouterLink></p>
         <p><RouterLink to="/login" class="nav-link" > <i class="fas fa-sign-in-alt"></i>Se connecter</RouterLink></p>
@@ -58,7 +59,6 @@ document.title = "Twitter";
 img{
  width: 70px;
  height: 70px;
- margin-bottom: 50px;
 }
 .container {
   display: flex;

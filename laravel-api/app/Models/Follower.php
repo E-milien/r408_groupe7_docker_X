@@ -6,9 +6,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Followers extends Model
+class Follower extends Model
 {
     protected $table = "followers";
-    protected $primaryKey = "follower_id,followed_id";
+    protected $primaryKey = ["follower_id","followed_id"];
+    public $incrementing = false;
     public $timestamps = false;
 }

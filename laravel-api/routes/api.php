@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\RetweetController;
+use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LikeController;
@@ -30,6 +32,18 @@ Route::post('/postLike', [LikeController::class, 'store']);
 Route::get('likesById/{id}', [LikeController::class, 'getByIdLike']);
 Route::get('/getLikes', [LikeController::class, 'getLikes']);
 Route::get('/liked/{userId}/{tweetId}', [LikeController::class, 'getLiked']);
+
+Route::delete('/retweets/{userId}/{tweetId}', [RetweetController::class, 'delete']);
+Route::post('/postRetweet', [RetweetController::class, 'store']);
+Route::get('retweetsById/{id}', [RetweetController::class, 'getByIdRT']);
+Route::get('/getRetweets', [RetweetController::class, 'getRTs']);
+Route::get('/retweeted/{userId}/{tweetId}', [RetweetController::class, 'getByIdRT']);
+
+Route::delete('/followers/{follower}/{followed}', [FollowerController::class, 'delete']);
+Route::post('/postFollow', [FollowerController::class, 'store']);
+Route::get('followsById/{id}', [FollowerController::class, 'getById']);
+Route::get('/getFollows', [FollowerController::class, 'getFollowers']);
+Route::get('/followed/{follower}/{followed}', [FollowerController::class, 'getByIds']);
 
 Route::get('/comments', [CommentController::class, 'getComment']);
 Route::get('/comments/getById/{id}', [CommentController::class, 'getById']);

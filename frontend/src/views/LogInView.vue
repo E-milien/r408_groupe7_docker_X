@@ -22,7 +22,7 @@ const login = async () => {
 
     try {
         const reponse = await loginStore.logUser(credentials);
-        console.log(reponse);
+        loginStore.variableUser = true
         sessionStorage.setItem('iduser', reponse.user_id)
         router.push('/');
     } catch (error) {

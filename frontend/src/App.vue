@@ -1,14 +1,16 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { ref } from 'vue';
-
+import { useLoginStore } from './store/login'
+import { useRouter } from 'vue-router';
 const isDarkMode = ref(false);
-
+const loginStore = useLoginStore()
 const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value;
 };
 
 import { watch } from 'vue';
+import router from './router';
 watch(isDarkMode, (value) => {
   if (value) {
     document.body.classList.add('dark-mode');
@@ -16,16 +18,13 @@ watch(isDarkMode, (value) => {
     document.body.classList.remove('dark-mode');
   }
 });
-var variableUser = ref('')
-variableUser = sessionStorage.getItem('iduser');
-var connected = ref('')
-if (variableUser != null) {
-  if (variableUser > 0) {
-    connected.value = 'Connecté'
-  }
-  else connected.value = 'Deconnecté'
+
+function deconnect (){
+  loginStore.logOut()
+  loginStore.variableUser = false
+  router.push('/')
 }
-else connected.value = 'Deconnecté'
+
 document.title = "Twitter";
 </script>
 <template>
@@ -41,11 +40,12 @@ document.title = "Twitter";
         <img src="./assets/twtter.png" alt="twitter logo">
 
         <p><RouterLink to="/" class="nav-link"><i class="fas fa-home"></i>Home</RouterLink></p>
-        <p><RouterLink to="/register" class="nav-link"> Créer un compte</RouterLink></p>
-        <p><RouterLink to="/login" class="nav-link" > <i class="fas fa-sign-in-alt"></i>Se connecter</RouterLink></p>
-        <p><RouterLink to="/account" class="nav-link"> <i class="fas fa-user"></i>Mon compte</RouterLink></p>
+        <p v-if="!loginStore.variableUser"><RouterLink to="/register" class="nav-link"> Créer un compte</RouterLink></p>
+        <p v-if="!loginStore.variableUser"><RouterLink to="/login" class="nav-link" > <i class="fas fa-sign-in-alt"></i>Se connecter</RouterLink></p>
+        <p v-if="loginStore.variableUser"><RouterLink to="/account" class="nav-link"> <i class="fas fa-user"></i>Mon compte</RouterLink></p>
+        <p v-if="loginStore.variableUser"><RouterLink to="/" class="nav-link"> <i class="fas fa-user" @click="deconnect"></i>Se déconnecter</RouterLink></p>
       </nav>
-      <h1>{{ connected }}</h1>
+      
     </header>
     <main class="main-content">
       <RouterView />

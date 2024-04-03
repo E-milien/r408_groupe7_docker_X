@@ -43,13 +43,14 @@ fetchLike().then(like => {
     else
         textLike.value = '♡'
 });
+
 var nbLike = ref(0);
 const fetchCountLike = async () => {
     return await likeStore.getLikesById(theTweet.id);
 };
 
 fetchCountLike().then(alllLikes => {
-    nbLike = alllLikes.length
+    nbLike.value = alllLikes.length
 });
 
 const fetchUser = async () => {
@@ -79,18 +80,23 @@ const toggleLike = () => {
     if (currentId !== "") {
         if (currentId > 0) {
             if (textLike.value == '♡') {
-                likeStore.addLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });
+                likeStore.addLike({ 'user_id': currentId, 'tweet_id': theTweet.id });
                 textLike.value = '♥';
-                nbLike.value = nbLike.value + 1;
+                nbLike.value += 1;
             } else {
-                likeStore.removeLike({ 'user_id': getCurrentUserId(), 'tweet_id': theTweet.id });
+                likeStore.removeLike({ 'user_id': currentId, 'tweet_id': theTweet.id });
                 textLike.value = '♡';
-                nbLike.value = nbLike.value - 1;
+                nbLike.value -=  1;
             }
         }
+        else
+        {
+            router.push('/login')
+        }   
     }
-    else
+    else {
         router.push('/login')
+    }
 };
 
 const postCommentaire = () => {
@@ -109,22 +115,13 @@ const postCommentaire = () => {
     commentaire.value = "";
 };
 
-const getUserProfilePicUrl = () => {
-    // Vérifiez si leUser.value est défini pour éviter une erreur si la valeur n'est pas encore chargée
-    if (leUser.value != null) {
-        console.log(leUser.profile_pic)
-        return '../assets/' + leUser.value.profile_pic;
-    } else {
-        return 'vide'; // ou une URL par défaut si nécessaire
-    }
-};
 </script>
 
 <template>
 
     <div id="leTweet">
         <h3>@{{ leUser.username }}</h3>
-        <img :src="getUserProfilePicUrl()" alt="profile_picture">
+        <img :src="leUser.profile_pic" alt="profile_picture">
 
         <div id="main">
             <p class="text">{{ tweet.tweet_text }}</p>

@@ -234,7 +234,7 @@ const postCommentaire = () => {
             <button class="action-button" @click="toggleReply"><i class="far fa-comment"></i> Répondre</button>
             <button class="action-button" @click="toggleLike"><i :class="[textLike === 'liked' ? 'fas' : 'far', 'fa-heart']"></i></button>
             <span id="likes"> {{ nbLike }}</span>
-            <button class="action-button" @click="toggleRetweet">        <i class="fas fa-retweet"></i></button>
+            <button class="action-button" @click="toggleRetweet"><i :class="[textRt === 'retweeted' ? 'fas' : 'far', 'fa-retweet']"></i></button>
             <span id="rts"> {{ nbRT }}</span>
             <input type="text" id="inputCom" v-model="commentaire" placeholder="Commentaire...">
             <button id="postCom" @click="postCommentaire">Poster</button>
@@ -245,7 +245,7 @@ const postCommentaire = () => {
 
 <style scoped>
 #leTweet {
-    background-color: rgb(231, 231, 231);
+    background-color: #ffffff;
     border: 1px solid #e1e8ed;
     border-radius: 15px;
     padding: 15px;
@@ -253,9 +253,6 @@ const postCommentaire = () => {
 }
 #leTweet{
     width: 700px;
-}
-.action-button i {
-    font-size: inherit 3px;
 }
 
 .userProfile {
@@ -268,7 +265,7 @@ img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: solid 1px black;
+    border: solid 2px #1da1f2;
     margin-right: 10px;
 }
 

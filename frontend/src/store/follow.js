@@ -31,6 +31,13 @@ export const useFollowStore = defineStore('follow', () => {
         return allFollowByID
     }
 
+    async function getFollowingById(id) {
+        const response = await fetch(`http://localhost:5020/api/followingById/${id}`, { method: 'GET' })
+
+        const allFollowingByID = await response.json()
+        return allFollowingByID
+    }
+
     async function addFollow(follow) {
         const response = await fetch(`http://localhost:5020/api/postFollow`, {
             method: 'POST',
@@ -46,5 +53,5 @@ export const useFollowStore = defineStore('follow', () => {
         return response.ok
     }
 
-    return { getFollows, getFollowById, followed, removeFollow, addFollow, allFollow }
+    return { getFollows, getFollowById, followed, removeFollow, addFollow, getFollowingById, allFollow }
 })

@@ -3,29 +3,44 @@ import { useRouter } from 'vue-router';
 import { ref ,onMounted} from 'vue';
 import { useUserStore } from '../store/user';
 import { useTweetStore } from '../store/tweet';
+import { useRtStore } from '../store/retweet';
 import { useFollowStore } from '../store/follow';
 
 import Tweet from '../components/Tweet.vue'
+import Retweet from '../components/Retweet.vue'
 
 
 const userStore = useUserStore();
 const router = useRouter();
 const tweetStore = useTweetStore();
+const retweetStore = useRtStore();
 const followStore=useFollowStore();
 
 const variableUser = ref(sessionStorage.getItem('iduser'));
 var leUser = ref("");
 var userTweets = ref([]);
-var userFollower=ref([]);
+var userRetweets = ref([]);
+var userFollowers=ref([]);
+var userFollowing=ref([]);
 
-const fetchFollower=async()=>{
+const fetchFollowers=async()=>{
   if (variableUser.value !== null) {
     return await followStore.getFollowById(variableUser.value);
   }
 }
 
-fetchFollower().then(flw=>{
-  userFollower.value=flw
+fetchFollowers().then(flw=>{
+  userFollowers.value=flw
+})
+
+const fetchFollowing=async()=>{
+  if (variableUser.value !== null) {
+    return await followStore.getFollowingById(variableUser.value);
+  }
+}
+
+fetchFollowing().then(flw=>{
+  userFollowing.value=flw
 })
 
 const fetchUser = async () => {
@@ -49,6 +64,17 @@ const fetchUserTweets = async () => {
 
 fetchUserTweets().then(usr=>{
   userTweets.value=usr
+
+  console.log(userTweets.value)
+});
+
+const fetchUserRetweets = async () => {
+  return await retweetStore.getRtByIdUser(variableUser.value)
+};
+
+
+fetchUserRetweets().then(usr=>{
+  userRetweets.value=usr
 
   console.log(userTweets.value)
 });
@@ -81,20 +107,27 @@ onMounted(() => {
         <p id="username">{{ leUser.firstname }}   {{ leUser.lastname }}</p>
         <p id="arobase-user">@{{ leUser.username }}</p>
         <p id="date">🗓A rejoint Twitter le {{ formatDate(leUser.birthdate) }}</p>
-        <p id="nbFollower">{{ userFollower.length }} Abonnements</p>
+        <div id="stats">
+          <p id="nbFollower">{{ userFollowers.length }} Abonné(s)</p>
+          <p id="nbFollower">{{ userFollowing.length }} Abonnement(s)</p>
+        </div>
       </div>
       <p></p>
     </header>
 
   </section>
   <div class="divider"></div>
-  <div v-if="userTweets.length === 0">
-            <p>L'utilisateur n'a pas encore posté de tweets.</p>
+  <div v-if="userTweets.length === 0 && userRetweets.length === 0">
+        <p>L'utilisateur n'a pas encore posté de tweets ni de retweets.</p>
+    </div>
+    <div v-else>
+        <div v-for="retweet in userRetweets">
+            <Retweet :key="retweet.user_id" :tweet="retweet"/>
         </div>
-
-        <Tweet v-else v-for="tweet in userTweets" :key="tweet.id" :tweet="tweet" />
-
- 
+        <div v-for="tweet in userTweets">
+            <Tweet :key="tweet.id" :tweet="tweet"/>
+        </div>
+    </div>
 </template>
 
 <style scoped>
@@ -143,5 +176,13 @@ font-size: 30px;
 section header{
   padding: 70px;
   background-color: #1da1f2;
+}
+
+#stats {
+    display: flex;
+}
+
+#stats p {
+  margin-right: 10px;
 }
 </style>

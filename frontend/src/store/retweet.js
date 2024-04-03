@@ -31,6 +31,13 @@ export const useRtStore = defineStore('rt', () => {
         return allRtByID
     }
 
+    async function getRtByIdUser(id) {
+        const response = await fetch(`http://localhost:5020/api/retweetsByIdUser/${id}`, { method: 'GET' })
+
+        const allRtByID = await response.json()
+        return allRtByID
+    }
+
     async function addRT(retweet) {
         const response = await fetch(`http://localhost:5020/api/postRetweet`, {
             method: 'POST',
@@ -46,5 +53,5 @@ export const useRtStore = defineStore('rt', () => {
         return response.ok
     }
 
-    return { getRT, getRtById, retweeted, removeRT, addRT, allRT }
+    return { getRT, getRtById, retweeted, removeRT, addRT, getRtByIdUser, allRT }
 })

@@ -36,12 +36,14 @@ Route::get('/liked/{userId}/{tweetId}', [LikeController::class, 'getLiked']);
 Route::delete('/retweets/{userId}/{tweetId}', [RetweetController::class, 'delete']);
 Route::post('/postRetweet', [RetweetController::class, 'store']);
 Route::get('retweetsById/{id}', [RetweetController::class, 'getByIdRT']);
+Route::get('retweetsByIdUser/{id}', [RetweetController::class, 'getByIdUser']);
 Route::get('/getRetweets', [RetweetController::class, 'getRTs']);
 Route::get('/retweeted/{userId}/{tweetId}', [RetweetController::class, 'getByIdsRT']);
 
 Route::delete('/followers/{follower}/{followed}', [FollowerController::class, 'delete']);
 Route::post('/postFollow', [FollowerController::class, 'store']);
 Route::get('followsById/{id}', [FollowerController::class, 'getById']);
+Route::get('followingById/{id}', [FollowerController::class, 'getByIdFollowing']);
 Route::get('/getFollows', [FollowerController::class, 'getFollowers']);
 Route::get('/followed/{follower}/{followed}', [FollowerController::class, 'getByIds']);
 
@@ -58,3 +60,4 @@ Route::get("/users/getById/{id}", [UserController::class, 'getById']);
 Route::get("/users", [UserController::class, 'getUser']);
 
 Route::get("/tweet/getByIdTweet/{id}", [TweetController::class, 'getByIdUser']);
+Route::get("/tweetById", [TweetController::class, 'getById']);

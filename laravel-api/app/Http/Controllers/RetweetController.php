@@ -16,6 +16,12 @@ class RetweetController extends Controller
     {
         return Retweet::where('tweet_id', $id)->get();
     }
+    
+    public function getByIdUser($id)
+    {
+        return Retweet::where('user_id', $id)->get();
+    }
+    
 
     public function getByIdsRT($userId, $tweetId)
     {

@@ -17,6 +17,11 @@ class FollowerController extends Controller
         return Follower::where('followed_id', $id)->get();
     }
 
+    public function getByIdFollowing($id)
+    {
+        return Follower::where('follower_id', $id)->get();
+    }
+
     public function getByIds($follower, $followed)
     {
         return Follower::where('follower_id', $follower)

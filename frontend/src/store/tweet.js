@@ -18,6 +18,11 @@ export const useTweetStore = defineStore('tweet', () => {
         return await response.json()
     }
 
+    async function getTweetsById(id) {
+        const response = await fetch(`http://localhost:5020/api/tweet/tweetById/${id}`, { method: 'GET' })
+        return await response.json()
+    }
+
     // Fonction pour ajouter un nouveau tweet
     async function addTweet(tweet) {
         allTweet.value.push(tweet)
@@ -38,5 +43,5 @@ export const useTweetStore = defineStore('tweet', () => {
     }
 
     // Retourner les méthodes et la liste complète des tweets
-    return { getTweets, removeTweet, addTweet,getTweetsByUserId, allTweet }
+    return { getTweets, removeTweet, addTweet,getTweetsByUserId, allTweet,getTweetsById }
 })

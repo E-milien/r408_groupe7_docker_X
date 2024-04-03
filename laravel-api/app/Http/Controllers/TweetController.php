@@ -13,7 +13,7 @@ class TweetController extends Controller
         return Tweet::all();
     }
 
-    public function getById(Request $request, $id)
+    public function getById($id)
     {
         return Tweet::findOrFail($id);
     }

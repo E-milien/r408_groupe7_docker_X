@@ -3,14 +3,20 @@ import Comment from '../components/Comment.vue'
 import { ref, defineProps } from 'vue';
 import { useUserStore } from '../store/user';
 import { useCommentStore } from '../store/comment';
+import { useRtStore } from '../store/retweet';
+import { useFollowStore } from '../store/follow';
 import { useLikeStore } from '../store/like';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const userStore = useUserStore();
 const commentStore = useCommentStore();
+const followStore = useFollowStore();
+const rtStore = useRtStore();
 const likeStore = useLikeStore();
 var textLike = ref("pas assigné");
+var textRt = ref("pas assigné");
+var textFollow = ref("pas assigné");
 const props = defineProps({
     tweet: {
         required: true,
@@ -36,10 +42,48 @@ const fetchLike = async () => {
 
 fetchLike().then(like => {
     if (like) {
-        textLike.value = '♥'
+        textLike.value = 'liked'
     }
     else
-        textLike.value = '♡'
+        textLike.value = 'like'
+});
+
+const fetchRT = async () => {
+    const currentId = getCurrentUserId();
+    if (currentId !== "") {
+        if (currentId > 0) {
+            return await rtStore.retweeted(currentId, theTweet.id)
+        }
+        else
+            return false;
+    }
+};
+
+fetchRT().then(rt => {
+    if (rt) {
+        textRt.value = 'retweeted'
+    }
+    else
+        textRt.value = 'retweet'
+});
+
+const fetchFollow = async () => {
+    const currentId = getCurrentUserId();
+    if (currentId !== "") {
+        if (currentId > 0) {
+            return await followStore.followed(currentId, theTweet.user_id)
+        }
+        else
+            return false;
+    }
+};
+
+fetchFollow().then(follow => {
+    if (follow) {
+        textFollow.value = 'followed'
+    }
+    else
+        textFollow.value = 'follow'
 });
 
 var nbLike = ref(0);
@@ -51,6 +95,15 @@ fetchCountLike().then(alllLikes => {
     nbLike.value = alllLikes.length
 });
 
+var nbRT = ref(0);
+const fetchCountRT = async () => {
+    return await rtStore.getRtById(theTweet.id);
+};
+
+fetchCountRT().then(alllRTs => {
+    nbRT.value = alllRTs.length
+});
+
 const fetchUser = async () => {
     return await userStore.getUserById(theTweet.user_id);
 };
@@ -59,7 +112,6 @@ var leUser = ref("");
 fetchUser().then(usr => {
     leUser.value = usr
 });
-console.log(leUser.value.profile_pic)
 
 
 const fetchComments = async () => {
@@ -77,13 +129,13 @@ const toggleLike = () => {
     const currentId = getCurrentUserId();
     if (currentId !== "") {
         if (currentId > 0) {
-            if (textLike.value == '♡') {
+            if (textLike.value == 'like') {
                 likeStore.addLike({ 'user_id': currentId, 'tweet_id': theTweet.id });
-                textLike.value = '♥';
+                textLike.value = 'liked';
                 nbLike.value += 1;
             } else {
                 likeStore.removeLike({ 'user_id': currentId, 'tweet_id': theTweet.id });
-                textLike.value = '♡';
+                textLike.value = 'like';
                 nbLike.value -=  1;
             }
         }
@@ -102,7 +154,49 @@ const toggleReply = () => {
 };
 
 const toggleRetweet = () => {
-    // Ajoutez ici la logique pour retweeter le tweet
+    const currentId = getCurrentUserId();
+    if (currentId !== "") {
+        if (currentId > 0) {
+            if (textRt.value == 'retweet') {
+                rtStore.addRT({ 'user_id': currentId, 'tweet_id': theTweet.id });
+                textRt.value = 'retweeted';
+                nbRT.value += 1;
+            } else {
+                rtStore.removeRT({ 'user_id': currentId, 'tweet_id': theTweet.id });
+                textRt.value = 'retweet';
+                nbRT.value -=  1;
+            }
+        }
+        else
+        {
+            router.push('/login')
+        }   
+    }
+    else {
+        router.push('/login')
+    }
+};
+
+const toggleFollow = () => {
+    const currentId = getCurrentUserId();
+    if (currentId !== "") {
+        if (currentId > 0) {
+            if (textFollow.value == 'follow') {
+                followStore.addFollow({ 'follower_id': currentId, 'followed_id': theTweet.user_id });
+                textFollow.value = 'followed';
+            } else {
+                followStore.removeFollow({ 'follower_id': currentId, 'followed_id': theTweet.user_id });
+                textFollow.value = 'follow';
+            }
+        }
+        else
+        {
+            router.push('/login')
+        }   
+    }
+    else {
+        router.push('/login')
+    }
 };
 
 const postCommentaire = () => {
@@ -128,7 +222,7 @@ const postCommentaire = () => {
         <div class="userProfile">
             <img :src="leUser.profile_pic" alt="profile_picture">
             <h3 id="username">@{{ leUser.username }}</h3>
-            <button class="follow-button"><i class="fas fa-user-plus"></i></button>
+            <button class="follow-button" @click="toggleFollow">{{textFollow}}</button>
 
         </div>
 
@@ -138,9 +232,10 @@ const postCommentaire = () => {
         </div>
         <div id="interact">
             <button class="action-button" @click="toggleReply"><i class="far fa-comment"></i> Répondre</button>
-            <button class="action-button" @click="toggleLike"><i :class="[textLike === '♥' ? 'fas' : 'far', 'fa-heart']"></i></button>
+            <button class="action-button" @click="toggleLike"><i :class="[textLike === 'liked' ? 'fas' : 'far', 'fa-heart']"></i></button>
             <span id="likes"> {{ nbLike }}</span>
-            <button class="action-button" @click="toggleRetweet"><i class="fas fa-retweet"></i> Retweeter</button>
+            <button class="action-button" @click="toggleRetweet"><i :class="[textRt === 'retweeted' ? 'fas' : 'far', 'fa-retweet']"></i></button>
+            <span id="rts"> {{ nbRT }}</span>
             <input type="text" id="inputCom" v-model="commentaire" placeholder="Commentaire...">
             <button id="postCom" @click="postCommentaire">Poster</button>
         </div>
@@ -210,6 +305,10 @@ img {
 }
 
 #likes {
+    color: #657786;
+    margin-right: 10px;
+}
+#rts {
     color: #657786;
     margin-right: 10px;
 }

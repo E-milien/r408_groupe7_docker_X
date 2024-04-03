@@ -39,7 +39,7 @@ const filteredTweets=computed(()=>{
 .search-bar {
   position: fixed;
   top: 0;
-  left: 60%;
+  left: 51.5%;
   transform: translateX(-50%);
   width: calc(100% - 40px); /* largeur de la barre de recherche */
   max-width: 700px; /* largeur maximale */

@@ -37,7 +37,7 @@ Route::delete('/retweets/{userId}/{tweetId}', [RetweetController::class, 'delete
 Route::post('/postRetweet', [RetweetController::class, 'store']);
 Route::get('retweetsById/{id}', [RetweetController::class, 'getByIdRT']);
 Route::get('/getRetweets', [RetweetController::class, 'getRTs']);
-Route::get('/retweeted/{userId}/{tweetId}', [RetweetController::class, 'getByIdRT']);
+Route::get('/retweeted/{userId}/{tweetId}', [RetweetController::class, 'getByIdsRT']);
 
 Route::delete('/followers/{follower}/{followed}', [FollowerController::class, 'delete']);
 Route::post('/postFollow', [FollowerController::class, 'store']);

@@ -60,4 +60,4 @@ Route::get("/users/getById/{id}", [UserController::class, 'getById']);
 Route::get("/users", [UserController::class, 'getUser']);
 
 Route::get("/tweet/getByIdTweet/{id}", [TweetController::class, 'getByIdUser']);
-Route::get("/tweetById", [TweetController::class, 'getById']);
+Route::get("/tweetById/{id}", [TweetController::class, 'getById']);

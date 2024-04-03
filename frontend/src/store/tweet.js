@@ -19,7 +19,7 @@ export const useTweetStore = defineStore('tweet', () => {
     }
 
     async function getTweetsById(id) {
-        const response = await fetch(`http://localhost:5020/api/tweet/tweetById/${id}`, { method: 'GET' })
+        const response = await fetch(`http://localhost:5020/api/tweetById/${id}`, { method: 'GET' })
         return await response.json()
     }
 
@@ -43,5 +43,5 @@ export const useTweetStore = defineStore('tweet', () => {
     }
 
     // Retourner les méthodes et la liste complète des tweets
-    return { getTweets, removeTweet, addTweet,getTweetsByUserId, allTweet,getTweetsById }
+    return { getTweets, removeTweet, addTweet, getTweetsByUserId, allTweet, getTweetsById }
 })

@@ -13,8 +13,7 @@ export const useUserStore = defineStore('user', () => {
     async function getUserById(id) {
         const response = await fetch(`http://localhost:5020/api/users/getById/${id}`, { method: 'GET' })
 
-        const unUser = await response.json()
-        return unUser
+        return await response.json()
     }
 
     async function addUser(user) {
@@ -37,5 +36,5 @@ export const useUserStore = defineStore('user', () => {
         })
         return response.json()
     }
-    return { getUsers, getUserById,addUser, logUser,allUser }
+    return { getUsers, getUserById, addUser, logUser, allUser }
 })

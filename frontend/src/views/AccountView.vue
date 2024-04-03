@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { ref ,onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import { useUserStore } from '../store/user';
 import { useTweetStore } from '../store/tweet';
 import { useRtStore } from '../store/retweet';
@@ -14,37 +14,38 @@ const userStore = useUserStore();
 const router = useRouter();
 const tweetStore = useTweetStore();
 const retweetStore = useRtStore();
-const followStore=useFollowStore();
+const followStore = useFollowStore();
 
 const variableUser = ref(sessionStorage.getItem('iduser'));
 var leUser = ref("");
 var userTweets = ref([]);
 var userRetweets = ref([]);
-var userFollowers=ref([]);
-var userFollowing=ref([]);
+var userFollowers = ref([]);
+var userFollowing = ref([]);
 
-const fetchFollowers=async()=>{
+const fetchFollowers = async () => {
   if (variableUser.value !== null) {
     return await followStore.getFollowById(variableUser.value);
   }
 }
 
-fetchFollowers().then(flw=>{
-  userFollowers.value=flw
+fetchFollowers().then(flw => {
+  userFollowers.value = flw
 })
 
-const fetchFollowing=async()=>{
+const fetchFollowing = async () => {
   if (variableUser.value !== null) {
     return await followStore.getFollowingById(variableUser.value);
   }
 }
 
-fetchFollowing().then(flw=>{
-  userFollowing.value=flw
+fetchFollowing().then(flw => {
+  userFollowing.value = flw
 })
 
 const fetchUser = async () => {
   if (variableUser.value !== null) {
+    console.log(variableUser.value)
     return await userStore.getUserById(variableUser.value);
   }
 }
@@ -53,19 +54,16 @@ const goToAccueil = () => {
 }
 
 fetchUser().then(usr => {
-    leUser.value = usr
+  leUser.value = usr
 });
 
-console.log(variableUser.value)
 const fetchUserTweets = async () => {
   return await tweetStore.getTweetsByUserId(variableUser.value)
 };
 
 
-fetchUserTweets().then(usr=>{
-  userTweets.value=usr
-
-  console.log(userTweets.value)
+fetchUserTweets().then(usr => {
+  userTweets.value = usr
 });
 
 const fetchUserRetweets = async () => {
@@ -73,10 +71,8 @@ const fetchUserRetweets = async () => {
 };
 
 
-fetchUserRetweets().then(usr=>{
-  userRetweets.value=usr
-
-  console.log(userTweets.value)
+fetchUserRetweets().then(rt => {
+  userRetweets.value = rt
 });
 
 const formatDate = (dateString) => {
@@ -88,23 +84,24 @@ const formatDate = (dateString) => {
 
 
 onMounted(() => {
-  if (variableUser.value===null ) {
-    router.push('/login'); 
-    } 
+  if (variableUser.value === null) {
+    router.push('/login');
+  }
 });
 </script>
 
 <template>
-       <!-- Flèche à gauche -->
+  <!-- Flèche à gauche -->
 
-    <p><span @click="goToAccueil" class="arrow">&larr;</span>   {{ leUser.firstname }}      {{ leUser.lastname }} - {{ userTweets.length }} posts</p>
+  <p><span @click="goToAccueil" class="arrow">&larr;</span> {{ leUser.firstname }} {{ leUser.lastname }} - {{
+    userTweets.length }} posts</p>
 
   <section>
     <header>
 
       <div class="profile-pic">
         <img src="../assets/pp/default.png" alt="">
-        <p id="username">{{ leUser.firstname }}   {{ leUser.lastname }}</p>
+        <p id="username">{{ leUser.firstname }} {{ leUser.lastname }}</p>
         <p id="arobase-user">@{{ leUser.username }}</p>
         <p id="date">🗓A rejoint Twitter le {{ formatDate(leUser.birthdate) }}</p>
         <div id="stats">
@@ -118,68 +115,78 @@ onMounted(() => {
   </section>
   <div class="divider"></div>
   <div v-if="userTweets.length === 0 && userRetweets.length === 0">
-        <p>L'utilisateur n'a pas encore posté de tweets ni de retweets.</p>
+    <p>L'utilisateur n'a pas encore posté de tweets ni de retweets.</p>
+  </div>
+  <div v-else>
+    <div v-for="retweet in userRetweets">
+      <Retweet :key="retweet.user_id" :retweet="retweet" />
     </div>
-    <div v-else>
-        <div v-for="retweet in userRetweets">
-            <Retweet :key="retweet.user_id" :tweet="retweet"/>
-        </div>
-        <div v-for="tweet in userTweets">
-            <Tweet :key="tweet.id" :tweet="tweet"/>
-        </div>
+    <div v-for="tweet in userTweets">
+      <Tweet :key="tweet.id" :tweet="tweet" />
     </div>
+  </div>
 </template>
 
 <style scoped>
-*{
-    color: black;
-    
+* {
+  color: black;
+
 }
-.divider{
-  margin: 150px 0; /* Ajustez la marge selon vos besoins */
+
+.divider {
+  margin: 150px 0;
+  /* Ajustez la marge selon vos besoins */
 
 
 }
-.profile_pic{
-}
-#date{
+
+.profile_pic {}
+
+#date {
   right: 0;
 }
-header{
+
+header {
   height: 10px;
 }
-img{
+
+img {
 
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border:solid black  2px;
+  border: solid black 2px;
 
 }
-#arobase-user{
+
+#arobase-user {
   color: grey;
   font-weight: bold;
   margin-top: 7px;
 }
-.profile-pic #username,b {
+
+.profile-pic #username,
+b {
   color: white;
   font-size: 30px;
 }
 
-#username{
+#username {
   color: black;
 }
+
 .arrow {
-font-size: 30px;
-  cursor: pointer; 
+  font-size: 30px;
+  cursor: pointer;
 }
-section header{
+
+section header {
   padding: 70px;
   background-color: #1da1f2;
 }
 
 #stats {
-    display: flex;
+  display: flex;
 }
 
 #stats p {

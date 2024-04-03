@@ -15,7 +15,7 @@ class TweetController extends Controller
 
     public function getById($id)
     {
-        return Tweet::findOrFail($id);
+        return Tweet::where('id', $id)->get();
     }
 
     public function getByIdUser(Request $request, $id)
@@ -23,7 +23,6 @@ class TweetController extends Controller
         $tweets = Tweet::where('user_id', $id)->get();
 
         return response()->json($tweets);
-
     }
 
 

@@ -149,7 +149,7 @@ const getUserProfilePicUrl = () => {
     margin: 10px;
     margin-bottom: 20px;
     margin: 5px;
-    width: 500px;
+    width: 200%;
 }
 
 #leTweet h3 {

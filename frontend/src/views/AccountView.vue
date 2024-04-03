@@ -46,6 +46,13 @@ onMounted(() => {
 </script>
 
 <template>
+    <p>@{{ leUser.username }} - {{ userTweets.length }} posts</p>
+
+  <section>
+    <header>
+
+    </header>
+  </section>
     <Tweet v-for="tweet in userTweets" :key="tweet.id" :tweet="tweet" />
 
  
@@ -54,5 +61,11 @@ onMounted(() => {
 <style scoped>
 *{
     color: black;
+    
+}
+
+section header{
+  padding: 100px;
+  background-color: #1da1f2;
 }
 </style>

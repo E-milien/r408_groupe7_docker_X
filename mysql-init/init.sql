@@ -83,11 +83,11 @@ COLLATE=utf8mb4_general_ci;
 
 INSERT INTO users (firstname, lastname, username, bio, email, pwd, birthdate, profile_pic) 
 VALUES -- tout les mdp sont : coucou
-  ('John', 'Doe', 'mechantBTC', 'Developer', 'john@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1990-01-01', '../assets/avatar.jpg'),
-  ('Quentin', 'laval', 'lionel_pessi', 'Designer', 'alice@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1992-05-15', '../assets/avatar.jpg'),
-  ('Emily', 'Johnson', 'loserEnP3', 'Writer', 'emily@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1988-08-20', '../assets/avatar.jpg'),
-  ('Michael', 'Brown', 'farfadetMalicieux', 'Photographer', 'michael@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1985-04-12', '../assets/avatar.jpg'),
-  ('Sophia', 'Wilson', 'ClassiquePosey', 'Artist', 'sophia@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1995-10-30', '../assets/avatar.jpg');
+  ('John', 'Doe', 'mechantBTC', 'Developer', 'john@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1990-01-01', 'src/assets/avatar.jpg'),
+  ('Quentin', 'laval', 'lionel_pessi', 'Designer', 'alice@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1992-05-15', 'src/assets/avatar.jpg'),
+  ('Emily', 'Johnson', 'loserEnP3', 'Writer', 'emily@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1988-08-20', 'src/assets/avatar.jpg'),
+  ('Michael', 'Brown', 'farfadetMalicieux', 'Photographer', 'michael@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1985-04-12', 'src/assets/avatar.jpg'),
+  ('Sophia', 'Wilson', 'ClassiquePosey', 'Artist', 'sophia@example.com', '$2y$12$yibbfGLsQQyXm3QMSloRKO15joRH8i8n5Rm1WdCiOptF.DKEHOWKq', '1995-10-30', 'src/assets/avatar.jpg');
 
 INSERT INTO tweets (user_id, tweet_text, created_at) 
 VALUES 

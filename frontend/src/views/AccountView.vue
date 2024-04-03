@@ -20,7 +20,7 @@ var userFollower=ref([]);
 
 const fetchFollower=async()=>{
   if (variableUser.value !== null) {
-    return await tweetStore.getFollowById(variableUser.value);
+    return await followStore.getFollowById(variableUser.value);
   }
 }
 
@@ -71,14 +71,14 @@ onMounted(() => {
 <template>
        <!-- Flèche à gauche -->
 
-    <p><span @click="goToAccueil" class="arrow">&larr;</span>   @{{ leUser.firstname }}      {{ leUser.lastname }} - {{ userTweets.length }} posts</p>
+    <p><span @click="goToAccueil" class="arrow">&larr;</span>   {{ leUser.firstname }}      {{ leUser.lastname }} - {{ userTweets.length }} posts</p>
 
   <section>
     <header>
 
       <div class="profile-pic">
         <img src="../assets/pp/default.png" alt="">
-        <p id="username"><b>{{ leUser.firstname }}   {{ leUser.lastname }}</b></p>
+        <p id="username">{{ leUser.firstname }}   {{ leUser.lastname }}</p>
         <p id="arobase-user">@{{ leUser.username }}</p>
         <p id="date">🗓A rejoint Twitter le {{ formatDate(leUser.birthdate) }}</p>
         <p id="nbFollower">{{ userFollower.length }} Abonnements</p>
@@ -133,7 +133,9 @@ img{
   font-size: 30px;
 }
 
-
+#username{
+  color: black;
+}
 .arrow {
 font-size: 30px;
   cursor: pointer; 

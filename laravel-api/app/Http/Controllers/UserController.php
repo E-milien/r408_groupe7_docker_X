@@ -14,7 +14,7 @@ class UserController extends Controller
 
     public function getById($id)
     {
-        return User::findOrFail($id);
+        return User::where('id', $id)->first();
     }
 
     public function updateUser(Request $request, $id)

@@ -149,8 +149,13 @@ const toggleLike = () => {
     }
 };
 
+
+const showCommentInput = ref(false);
+
+
+
 const toggleReply = () => {
-    // Ajoutez ici la logique pour répondre au tweet
+    showCommentInput.value = !showCommentInput.value;
 };
 
 const toggleRetweet = () => {
@@ -220,7 +225,7 @@ const postCommentaire = () => {
 <template>
     <div id="leTweet">
         <div class="userProfile">
-            <img :src="leUser.profile_pic" alt="profile_picture">
+            <img id="profile_pic" :src="leUser.profile_pic" alt="profile_picture">
             <h3 id="username">@{{ leUser.username }}</h3>
             <button class="follow-button" @click="toggleFollow">{{textFollow}}</button>
 
@@ -231,25 +236,43 @@ const postCommentaire = () => {
             <p class="date">Posté le {{ tweet.created_at }}</p>
         </div>
         <div id="interact">
-            <button class="action-button" @click="toggleReply"><i class="far fa-comment"></i> Répondre</button>
-            <button class="action-button" @click="toggleLike"><i :class="[textLike === 'liked' ? 'fas' : 'far', 'fa-heart']"></i></button>
+            <button class="action-button" @click="toggleReply"><i :class="[showCommentInput ? 'active-reply-icon' : '', 'far fa-comment']"></i> Répondre</button>
+            <button class="action-button" @click="toggleLike"><i :class="[textLike === 'liked' ? 'fas' : 'far', 'fa-heart', textLike === 'liked' ? 'active-icon' : '']"></i></button>
             <span id="likes"> {{ nbLike }}</span>
-            <button class="action-button" @click="toggleRetweet">        <i class="fas fa-retweet"></i></button>
+           
+
+            <img id="rt" :src="textRt === 'retweeted' ? 'src/assets/rt2.png' : 'src/assets/rt1.png'" @click="toggleRetweet" alt="Retweet" class="retweet-icon">
+
             <span id="rts"> {{ nbRT }}</span>
-            <input type="text" id="inputCom" v-model="commentaire" placeholder="Commentaire...">
-            <button id="postCom" @click="postCommentaire">Poster</button>
+            <input type="text" id="inputCom" v-model="commentaire" placeholder="Commentaire..."  v-if="showCommentInput">
+            <button id="postCom" @click="postCommentaire" v-if="showCommentInput">Poster</button>
         </div>
         <Comment v-for="comment in lesCom" :key="comment.id" :comment="comment" />
     </div>
 </template>
 
 <style scoped>
+.action-button-retweet {
+    color: #1da1f2; /* Couleur du texte */
+}
 #leTweet {
-    background-color: rgb(231, 231, 231);
+    background-color: rgb(255, 255, 255);
     border: 1px solid #e1e8ed;
     border-radius: 15px;
     padding: 15px;
     margin-bottom: 15px;
+}
+.active-icon {
+    color: #1da1f2; 
+}
+
+.active-reply-icon {
+    color: #1da1f2; 
+}
+#rt{
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
 }
 #leTweet{
     width: 700px;
@@ -264,7 +287,7 @@ const postCommentaire = () => {
     margin-bottom: 10px;
 }
 
-img {
+#profile_pic {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -297,7 +320,7 @@ img {
 .action-button {
     background-color: transparent;
     border: none;
-    color: #1da1f2;
+    color: black;
     margin-right: 10px;
     cursor: pointer;
     font-size: 16px;

@@ -90,24 +90,29 @@ const toggleFollow = () => {
     margin-top: 20px;
     border-top: 1px solid #ddd;
     padding-top: 15px;
-}
-.userinfo{
-    display: flex;
+    margin-left: 20px; /* Décalage par rapport au tweet principal */
+    background-color: #f0f8ff; /* Couleur de fond différente pour les commentaires */
+    border-left: 5px solid #1da1f2; /* Bordure à gauche pour mettre en évidence */
+    padding-left: 10px; }
 
+.userinfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 }
+
 .leCommentaire h3 {
     font-size: 15px;
     color: #1da1f2;
-    margin-top: 5px;
-
+    margin: 0;
+    margin-left: 10px; /* Décalage supplémentaire pour le nom d'utilisateur */
 }
 
 .leCommentaire p {
     margin: 0;
-    color: grey;
-    margin-top: 20px;
+    color: #333; /* Couleur de texte légèrement plus sombre */
+    margin-top: 10px;
 }
-
 
 img {
     width: 30px;

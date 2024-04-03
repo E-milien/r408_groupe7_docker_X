@@ -148,9 +148,9 @@ VALUES
   (1, 2),  -- John (ID: 1) retweet le tweet d'Alice (ID: 2)
   (2, 3),  -- Alice (ID: 2) retweet le tweet de Michael (ID: 3)
   (3, 4),  -- Emily (ID: 3) retweet le tweet de John (ID: 4)
-  (4, 5),  -- Sophia (ID: 4) retweet le tweet de Michael (ID: 5)
-  (5, 1),  -- Sophia (ID: 5) retweet le tweet de John (ID: 1)
-  (1, 3);  -- John (ID: 1) retweet le tweet d'Emily (ID: 3)
+  (4, 4),  -- Sophia (ID: 4) retweet le tweet de Michael (ID: 5)
+  (5, 4),  -- Sophia (ID: 5) retweet le tweet de John (ID: 1)
+  (1, 4);  -- John (ID: 1) retweet le tweet d'Emily (ID: 3)
 
 
 INSERT INTO picture (pic_uri, tweet_id) 

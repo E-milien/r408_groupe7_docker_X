@@ -17,7 +17,7 @@ class RetweetController extends Controller
         return Retweet::where('tweet_id', $id)->get();
     }
 
-    public function getByIdRT($userId, $tweetId)
+    public function getByIdsRT($userId, $tweetId)
     {
         return Retweet::where('tweet_id', $tweetId)
             ->where('user_id', $userId)

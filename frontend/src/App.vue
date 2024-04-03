@@ -3,22 +3,8 @@ import { RouterLink, RouterView } from 'vue-router'
 import { ref } from 'vue';
 import { useLoginStore } from './store/login'
 import { useRouter } from 'vue-router';
-const isDarkMode = ref(false);
 const loginStore = useLoginStore()
-
-const toggleDarkMode = () => {
-  isDarkMode.value = !isDarkMode.value;
-};
-
-import { watch } from 'vue';
-import router from './router';
-watch(isDarkMode, (value) => {
-  if (value) {
-    document.body.classList.add('dark-mode');
-  } else {
-    document.body.classList.remove('dark-mode');
-  }
-});
+const router = useRouter();
 
 function deconnect (){
   loginStore.logOut()
@@ -36,7 +22,6 @@ document.title = "Twitter";
 
     <header class="header">
       <h1>Twitter</h1>
-      <!-- <button @click="toggleDarkMode">{{ isDarkMode ? 'Mode Jour' : 'Mode Nuit' }}</button> -->
       <nav>
         <img src="./assets/twtter.png" alt="twitter logo">
 
@@ -46,7 +31,7 @@ document.title = "Twitter";
         <p v-if="loginStore.variableUser"><RouterLink to="/account" class="nav-link"> <i class="fas fa-user"></i>Mon compte</RouterLink></p>
         <p v-if="loginStore.variableUser">
             <RouterLink to="/" class="nav-link" @click="deconnect"> <i class="fas fa-sign-out-alt"></i>Se déconnecter</RouterLink>
-          </p>      
+        </p>      
         </nav>
       
     </header>

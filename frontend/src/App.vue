@@ -41,7 +41,7 @@ document.title = "Twitter";
         <img src="./assets/twtter.png" alt="twitter logo">
 
         <p><RouterLink to="/" class="nav-link"><i class="fas fa-home"></i>Home</RouterLink></p>
-        <p v-if="!loginStore.variableUser"><RouterLink to="/register" class="nav-link"> Créer un compte</RouterLink></p>
+        <p v-if="!loginStore.variableUser"><RouterLink to="/register" class="nav-link"><i class="fas fa-user-plus"></i> Créer un compte</RouterLink></p>
         <p v-if="!loginStore.variableUser"><RouterLink to="/login" class="nav-link" > <i class="fas fa-sign-in-alt"></i>Se connecter</RouterLink></p>
         <p v-if="loginStore.variableUser"><RouterLink to="/account" class="nav-link"> <i class="fas fa-user"></i>Mon compte</RouterLink></p>
         <p v-if="loginStore.variableUser">
@@ -112,13 +112,13 @@ nav p {
   justify-content: flex-start;
   align-items: flex-start;
   padding-right: 50;
-  margin-left: 200px;
+  margin-left: 150px;
 }
 .header h1 {
   margin-bottom: 10px;
 }
 .main-content {
-  margin-left: 150px;
+  margin-left: 200px;
 flex: 1;
 }
 </style>

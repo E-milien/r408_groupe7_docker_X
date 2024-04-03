@@ -170,7 +170,7 @@ img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: solid 2px #1da1f2;
+    border: solid 3px black;
     margin-right: 10px;
 }
 

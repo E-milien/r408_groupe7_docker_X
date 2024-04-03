@@ -25,7 +25,11 @@ fetchUser().then(usr => {
 
 <template>
     <div class="leCommentaire">
+        <div class="userinfo">
+            <img :src="leUser.profile_pic" alt="profile_picture">
         <h3>@{{ leUser.username }}</h3>
+        </div>
+      
         <p>{{ comment.comment_text }}</p>
         <p class="date">Posté le {{ comment.created_at }}</p>
     </div>
@@ -37,16 +41,30 @@ fetchUser().then(usr => {
     border-top: 1px solid #ddd;
     padding-top: 15px;
 }
+.userinfo{
+    display: flex;
 
+}
 .leCommentaire h3 {
-    margin: 0;
-    font-size: 16px;
-    color: #333;
+    font-size: 15px;
+    color: #1da1f2;
+    margin-top: 5px;
+
 }
 
 .leCommentaire p {
     margin: 0;
-    color: #333;
+    color: grey;
+    margin-top: 20px;
+}
+
+
+img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: solid 3px black;
+    margin-right: 10px;
 }
 
 .date {

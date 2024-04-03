@@ -3,16 +3,30 @@ import { useRouter } from 'vue-router';
 import { ref ,onMounted} from 'vue';
 import { useUserStore } from '../store/user';
 import { useTweetStore } from '../store/tweet';
+import { useFollowStore } from '../store/follow';
+
 import Tweet from '../components/Tweet.vue'
 
 
 const userStore = useUserStore();
 const router = useRouter();
-const tweetStore = useTweetStore(); // Initialisez le store des tweets
+const tweetStore = useTweetStore();
+const followStore=useFollowStore();
 
 const variableUser = ref(sessionStorage.getItem('iduser'));
 var leUser = ref("");
 var userTweets = ref([]);
+var userFollower=ref([]);
+
+const fetchFollower=async()=>{
+  if (variableUser.value !== null) {
+    return await tweetStore.getFollowById(variableUser.value);
+  }
+}
+
+fetchFollower().then(flw=>{
+  userFollower.value=flw
+})
 
 const fetchUser = async () => {
   if (variableUser.value !== null) {
@@ -67,6 +81,7 @@ onMounted(() => {
         <p id="username"><b>{{ leUser.firstname }}   {{ leUser.lastname }}</b></p>
         <p id="arobase-user">@{{ leUser.username }}</p>
         <p id="date">🗓A rejoint Twitter le {{ formatDate(leUser.birthdate) }}</p>
+        <p id="nbFollower">{{ userFollower.length }} Abonnements</p>
       </div>
       <p></p>
     </header>

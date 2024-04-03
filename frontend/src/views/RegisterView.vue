@@ -101,6 +101,8 @@ p{
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  margin-top: 50px;
+  margin-right: 50px;
 }
 
 h1 {

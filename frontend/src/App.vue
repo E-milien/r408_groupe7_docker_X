@@ -5,6 +5,7 @@ import { useLoginStore } from './store/login'
 import { useRouter } from 'vue-router';
 const isDarkMode = ref(false);
 const loginStore = useLoginStore()
+
 const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value;
 };
@@ -43,8 +44,10 @@ document.title = "Twitter";
         <p v-if="!loginStore.variableUser"><RouterLink to="/register" class="nav-link"> Créer un compte</RouterLink></p>
         <p v-if="!loginStore.variableUser"><RouterLink to="/login" class="nav-link" > <i class="fas fa-sign-in-alt"></i>Se connecter</RouterLink></p>
         <p v-if="loginStore.variableUser"><RouterLink to="/account" class="nav-link"> <i class="fas fa-user"></i>Mon compte</RouterLink></p>
-        <p v-if="loginStore.variableUser"><RouterLink to="/" class="nav-link"> <i class="fas fa-user" @click="deconnect"></i>Se déconnecter</RouterLink></p>
-      </nav>
+        <p v-if="loginStore.variableUser">
+            <RouterLink to="/" class="nav-link" @click="deconnect"> <i class="fas fa-sign-out-alt"></i>Se déconnecter</RouterLink>
+          </p>      
+        </nav>
       
     </header>
     <main class="main-content">
@@ -109,13 +112,13 @@ nav p {
   justify-content: flex-start;
   align-items: flex-start;
   padding-right: 50;
-  margin-left: 300px;
+  margin-left: 200px;
 }
 .header h1 {
   margin-bottom: 10px;
 }
 .main-content {
-  margin-left: 100px;
+  margin-left: 150px;
 flex: 1;
 }
 </style>

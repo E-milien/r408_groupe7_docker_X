@@ -19,8 +19,6 @@ const props = defineProps({
 });
 const theTweet = props.tweet
 
-
-
 const getCurrentUserId = () => {
     return sessionStorage.getItem('iduser');
 };
@@ -99,6 +97,14 @@ const toggleLike = () => {
     }
 };
 
+const toggleReply = () => {
+    // Ajoutez ici la logique pour répondre au tweet
+};
+
+const toggleRetweet = () => {
+    // Ajoutez ici la logique pour retweeter le tweet
+};
+
 const postCommentaire = () => {
     const date = new Date();
     const year = date.getFullYear();
@@ -118,18 +124,23 @@ const postCommentaire = () => {
 </script>
 
 <template>
-
     <div id="leTweet">
-        <h3>@{{ leUser.username }}</h3>
-        <img :src="leUser.profile_pic" alt="profile_picture">
+        <div class="userProfile">
+            <img :src="leUser.profile_pic" alt="profile_picture">
+            <h3 id="username">@{{ leUser.username }}</h3>
+            <button class="follow-button"><i class="fas fa-user-plus"></i></button>
+
+        </div>
 
         <div id="main">
             <p class="text">{{ tweet.tweet_text }}</p>
             <p class="date">Posté le {{ tweet.created_at }}</p>
         </div>
         <div id="interact">
-            <p id="likes"> {{ nbLike }}♥</p>
-            <button id="button-like" @click="toggleLike">{{ textLike }}</button>
+            <button class="action-button" @click="toggleReply"><i class="far fa-comment"></i> Répondre</button>
+            <button class="action-button" @click="toggleLike"><i :class="[textLike === '♥' ? 'fas' : 'far', 'fa-heart']"></i></button>
+            <span id="likes"> {{ nbLike }}</span>
+            <button class="action-button" @click="toggleRetweet"><i class="fas fa-retweet"></i> Retweeter</button>
             <input type="text" id="inputCom" v-model="commentaire" placeholder="Commentaire...">
             <button id="postCom" @click="postCommentaire">Poster</button>
         </div>
@@ -139,20 +150,34 @@ const postCommentaire = () => {
 
 <style scoped>
 #leTweet {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid #e1e8ed;
+    border-radius: 15px;
     padding: 15px;
-    margin: 10px;
-    margin-bottom: 20px;
-    margin: 5px;
-    width: 200%;
+    margin-bottom: 15px;
+}
+#leTweet{
+    width: 700px;
+}
+
+.userProfile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: solid 2px #1da1f2;
+    margin-right: 10px;
 }
 
 #leTweet h3 {
-    margin: 0 0 10px 0;
+    margin: 0;
     font-size: 18px;
-    color: #333;
+    color: #1da1f2;
 }
 
 #main {
@@ -160,9 +185,10 @@ const postCommentaire = () => {
 }
 
 .text {
-    color: #666;
+    color: #14171a;
     margin: 0;
-    font-size: larger;
+    font-size: 16px;
+    line-height: 1.4;
 }
 
 #interact {
@@ -170,53 +196,51 @@ const postCommentaire = () => {
     align-items: center;
 }
 
-#likes {
-    margin-right: 10px;
-}
-
-#button-like {
-    background-color: #007bff;
-    color: white;
+.action-button {
+    background-color: transparent;
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+    color: #1da1f2;
     margin-right: 10px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-#button-like:hover {
-    background-color: #0056b3;
+.action-button:hover {
+    color: #006cb7;
+}
+
+#likes {
+    color: #657786;
+    margin-right: 10px;
 }
 
 #inputCom {
     flex: 1;
     margin-right: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 8px;
+    border: 1px solid #e1e8ed;
+    border-radius: 25px;
+    font-size: 16px;
 }
 
 #postCom {
-    background-color: #28a745;
-    color: white;
+    background-color: #1da1f2;
+    color: #ffffff;
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 8px 20px;
+    border-radius: 25px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 #postCom:hover {
-    background-color: #218838;
+    background-color: #0d91e0;
 }
-
-#likes {
-    color: #333;
-}
-
 
 .date {
-    color: #666;
+    color: #657786;
     margin: 0;
+    font-size: 14px;
     text-align: right;
 }
 </style>

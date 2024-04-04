@@ -239,7 +239,7 @@ const postCommentaire = () => {
         <div class="userProfile">
             <img id="profile_pic" :src="leUser.profile_pic" alt="profile_picture" @click="redirigerVersCompte(leUser)">
             <h3 class="username" @click="redirigerVersCompte(leUser)">@{{ leUser.username }}</h3>
-            <button class="follow-button" @click="toggleFollow">{{textFollow}}</button>
+            <button v-if="leUser.id!==getCurrentUserId()" class="follow-button" @click="toggleFollow">{{textFollow}}</button>
         </div>
 
         <div id="main">
@@ -254,7 +254,7 @@ const postCommentaire = () => {
 
             <img id="rt" :src="textRt === 'retweeted' ? 'src/assets/rt2.png' : 'src/assets/rt1.png'" @click="toggleRetweet" alt="Retweet" class="retweet-icon">
 
-            <span id="rts"> {{ nbRT }}</span>
+            <span id="rts">  {{ nbRT }}</span>
             <input type="text" id="inputCom" v-model="commentaire" placeholder="Commentaire..."  v-if="showCommentInput">
             <button id="postCom" @click="postCommentaire" v-if="showCommentInput">Poster</button>
         </div>
@@ -380,5 +380,15 @@ const postCommentaire = () => {
     margin: 0;
     font-size: 14px;
     text-align: right;
+}
+.follow-button {
+    background-color: transparent;
+    border: 1px solid #1da1f2; 
+    color: #1da1f2; 
+    border-radius: 9999px;
+    padding: 8px 16px; 
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    margin-left: auto;
 }
 </style>

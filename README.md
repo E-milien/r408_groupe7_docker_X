@@ -2,10 +2,10 @@
 
 Ce projet est un clone de X réalisé par le Goupe 7.
 
-## Membres du groupe :
-- Emilien Roukine
-- Hugo Raguin
-- Quentin Laval
+## Membres du groupe et leurs roles:
+- Emilien Roukine Dockerisation du projet/Programmation en backend et   frontend
+- Hugo Raguin BDD et livrables
+- Quentin Laval Dockerisation du projet/Programmation en backend et   frontend
 
 ## Introduction
 Ce projet est un clone simplifié de X. Notre objectif est de créer une version fonctionnelle de X en utilisant Docker pour orchestrer les services (frontend, backend, base de données) et en fournissant des instructions claires pour le lancement et l'utilisation du projet.

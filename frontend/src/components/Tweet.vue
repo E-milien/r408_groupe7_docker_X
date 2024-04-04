@@ -241,7 +241,7 @@ const postCommentaire = () => {
             <p class="date">Posté le {{ tweet.created_at }}</p>
         </div>
         <div id="interact">
-            <button class="action-button" @click="toggleReply"><i :class="[showCommentInput ? 'active-reply-icon' : '', 'far fa-comment']"></i> Répondre</button>
+            <button class="action-button" @click="toggleReply"> {{ lesCom.length }}   <i :class="[showCommentInput ? 'active-reply-icon' : '', 'far fa-comment']"></i> Répondre </button>
             <button class="action-button" @click="toggleLike"><i :class="[textLike === 'liked' ? 'fas' : 'far', 'fa-heart', textLike === 'liked' ? 'active-icon' : '']"></i></button>
             <span id="likes"> {{ nbLike }}</span>
            

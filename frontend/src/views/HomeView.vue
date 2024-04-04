@@ -69,7 +69,7 @@ margin-right: 200px;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #007bff;
+    background-color: #1da1f2;
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
@@ -78,7 +78,7 @@ margin-right: 200px;
 }
 
 .publish-button:hover {
-    background-color: #0056b3;
+    background-color: #1287cf;
 }
 
 .publish-image {

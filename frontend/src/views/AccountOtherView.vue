@@ -189,6 +189,12 @@ const formatDate = (dateString) => {
 
 .profile_pic {}
 
+
+.follow-button{
+position: absolute;
+right: 30px;
+top: 25%;
+}
 #date {
   right: 0;
 }

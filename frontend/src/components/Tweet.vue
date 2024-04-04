@@ -295,7 +295,7 @@ const postCommentaire = () => {
 }
 
 #leTweet {
-    width: 700px;
+    width: 90%;
 }
 
 #username {

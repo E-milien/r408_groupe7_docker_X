@@ -204,6 +204,13 @@ const toggleFollow = () => {
     }
 };
 
+const redirigerVersCompte = (user) => {
+    console.log('iduser', user.id)
+    sessionStorage.setItem('idForAccount',user.id)
+    console.log('localstorage', sessionStorage.getItem('idForAccount'))
+    router.push('/accountOther');
+}
+
 const postCommentaire = () => {
     const date = new Date();
     const year = date.getFullYear();
@@ -225,10 +232,9 @@ const postCommentaire = () => {
 <template>
     <div id="leTweet">
         <div class="userProfile">
-            <img id="profile_pic" :src="leUser.profile_pic" alt="profile_picture">
-            <h3 id="username">@{{ leUser.username }}</h3>
+            <img id="profile_pic" :src="leUser.profile_pic" alt="profile_picture" @click="redirigerVersCompte(leUser)">
+            <h3 class="username" @click="redirigerVersCompte(leUser)">@{{ leUser.username }}</h3>
             <button class="follow-button" @click="toggleFollow">{{textFollow}}</button>
-
         </div>
 
         <div id="main">
@@ -290,6 +296,7 @@ const postCommentaire = () => {
     border-radius: 50%;
     border: solid 2px #1da1f2;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 #leTweet h3 {
@@ -364,5 +371,9 @@ const postCommentaire = () => {
     margin: 0;
     font-size: 14px;
     text-align: right;
+}
+
+.username {
+    cursor: pointer;
 }
 </style>

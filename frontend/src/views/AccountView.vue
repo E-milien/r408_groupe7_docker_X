@@ -100,8 +100,10 @@ onMounted(() => {
     <header>
 
       <div class="profile-pic">
-        <img src="../assets/pp/default.png" alt="">
-        <p id="username">{{ leUser.firstname }} {{ leUser.lastname }}</p>
+
+        <img v-if="leUser && leUser.profile_pic" id="profile_pic" :src="leUser.profile_pic" alt="profile_picture">
+<img v-else id="profile_pic" src="../assets/pp/default.png" alt="profile_picture">
+            <p id="username">{{ leUser.firstname }} {{ leUser.lastname }}</p>
         <p id="arobase-user">@{{ leUser.username }}</p>
         <p id="date">🗓A rejoint Twitter le {{ formatDate(leUser.birthdate) }}</p>
         <div id="stats">
@@ -135,7 +137,6 @@ onMounted(() => {
 
 .divider {
   margin: 150px 0;
-  /* Ajustez la marge selon vos besoins */
 
 
 }
@@ -167,7 +168,6 @@ img {
 
 .profile-pic #username,
 b {
-  color: white;
   font-size: 30px;
 }
 
@@ -183,6 +183,9 @@ b {
 section header {
   padding: 70px;
   background-color: #1da1f2;
+}
+p span{
+  color: black;
 }
 
 #stats {

@@ -114,6 +114,17 @@ const toggleFollow = () => {
     margin-top: 10px;
 }
 
+.follow-button {
+    background-color: transparent;
+    border: 1px solid #1da1f2; 
+    color: #1da1f2; 
+    border-radius: 9999px;
+    padding: 8px 16px; 
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    margin-left: auto;
+}
+
 img {
     width: 30px;
     height: 30px;

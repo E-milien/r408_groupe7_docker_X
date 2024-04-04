@@ -16,7 +16,35 @@ const username = ref('');
 const email = ref('');
 const password = ref('');
 
+const passwordError = ref('');
+const emailError = ref('');
+
+const validatePassword = () => {
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!regex.test(password.value)) {
+        passwordError.value = 'Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre et un chiffre.';
+        return false;
+    } else {
+        passwordError.value = '';
+        return true;
+    }
+};
+
+const validateEmail = () => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regex.test(email.value)) {
+        emailError.value = 'Veuillez entrer une adresse email valide.';
+        return false;
+    } else {
+        emailError.value = '';
+        return true;
+    }
+};
+
 const register = async () => {
+  if (!validatePassword() || !validateEmail()) {
+        return;
+    }
     const newUser = {
         firstname: firstname.value,
         lastname: lastname.value,
@@ -25,7 +53,7 @@ const register = async () => {
         pwd: password.value
     };
     console.log('Nouvel utilisateur :', newUser);
-    await userStore.addUser(newUser); // Appel de la méthode addUser du magasin
+    await userStore.addUser(newUser); 
     router.push('/');
 };
 </script>
@@ -53,10 +81,14 @@ const register = async () => {
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" v-model="email" required>
+                    <p v-if="emailError" class="error">{{ emailError }}</p>
+
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
                     <input type="password" id="password" v-model="password" required>
+                    <p v-if="passwordError" class="error">{{ passwordError }}</p>
+
                 </div>
                 <button type="submit">S'inscrire</button>
             </form>
@@ -78,6 +110,12 @@ h1{
     font-family: 'Segoe UI',  Geneva, Arial, Helvetica, sans-serif, sans-serif;
 
 }
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
 label{
 
     color: black;

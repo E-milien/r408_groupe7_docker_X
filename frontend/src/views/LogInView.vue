@@ -13,21 +13,22 @@ const username = ref('');
 const password = ref('');
 
 const login = async () => {
-    const credentials = {
-        email: username.value,
-        pwd: password.value
-    };
+  const credentials = {
+    email: username.value,
+    pwd: password.value
+  };
 
-    console.log('Tentative de connexion avec :', credentials);
+  console.log('Tentative de connexion avec :', credentials);
 
-    try {
-        const reponse = await loginStore.logUser(credentials);
-        loginStore.variableUser = true
-        sessionStorage.setItem('iduser', reponse.user_id)
-        router.push('/');
-    } catch (error) {
-        console.error('Erreur de connexion :', error);
-    }
+  try {
+    const reponse = await loginStore.logUser(credentials);
+    loginStore.variableUser = true
+    console.log(reponse)
+    sessionStorage.setItem('iduser', reponse.user_id)
+    router.push('/');
+  } catch (error) {
+    console.error('Erreur de connexion :', error);
+  }
 };
 
 </script>
@@ -35,27 +36,28 @@ const login = async () => {
 
 <template>
 
-    <div class="login-page">
-        <div class="login-container">
-            <img src="../assets/twtter.png" alt="twitter logo">
-            <h1>Connectez‑vous à Twitter</h1>
-            <form @submit.prevent="login">
-                <div class="form-group">
-                    <label for="username">E-mail</label>
-                    <input type="text" id="username" v-model="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="pwd" v-model="password" required>
-                </div>
-                <button type="submit">Se connecter</button>
-            </form>
-            <div class="signup-link">
-                <p><span>Vous n'avez pas de compte ?</span> <RouterLink to="/register">Inscrivez-vous ici</RouterLink>
-                </p>
-            </div>
+  <div class="login-page">
+    <div class="login-container">
+      <img src="../assets/twtter.png" alt="twitter logo">
+      <h1>Connectez‑vous à Twitter</h1>
+      <form @submit.prevent="login">
+        <div class="form-group">
+          <label for="username">E-mail</label>
+          <input type="text" id="username" v-model="username" required>
         </div>
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="pwd" v-model="password" required>
+        </div>
+        <button type="submit">Se connecter</button>
+      </form>
+      <div class="signup-link">
+        <p><span>Vous n'avez pas de compte ?</span>
+          <RouterLink to="/register">Inscrivez-vous ici</RouterLink>
+        </p>
+      </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
@@ -64,21 +66,26 @@ const login = async () => {
   padding: 0;
   box-sizing: border-box;
 }
-img{
-    width: 20%;
-    height: 20%;
-    margin-left: 40%;
+
+img {
+  width: 20%;
+  height: 20%;
+  margin-left: 40%;
 }
-h1{
-    color: black;
-    font-family: 'Segoe UI',  Geneva, Arial, Helvetica, sans-serif, sans-serif;
+
+h1 {
+  color: black;
+  font-family: 'Segoe UI', Geneva, Arial, Helvetica, sans-serif, sans-serif;
 }
-label{
-    color: black;
+
+label {
+  color: black;
 }
-p{
-    color: grey;
+
+p {
+  color: grey;
 }
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f5f8fa;
@@ -156,4 +163,5 @@ button[type="submit"]:hover {
 
 .signup-link a:hover {
   text-decoration: underline;
-}</style>
+}
+</style>

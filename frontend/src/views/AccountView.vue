@@ -46,6 +46,7 @@ fetchFollowing().then(flw => {
 const fetchUser = async () => {
   if (variableUser.value !== null) {
     console.log(variableUser.value)
+    console.log(sessionStorage.getItem('iduser'))
     return await userStore.getUserById(variableUser.value);
   }
 }
@@ -103,9 +104,9 @@ onMounted(() => {
 
         <img v-if="leUser && leUser.profile_pic" id="profile_pic" :src="leUser.profile_pic" alt="profile_picture">
         <img v-else id="profile_pic" src="../assets/pp/default.png" alt="profile_picture">
-            <p id="username">{{ leUser.firstname }} {{ leUser.lastname }}</p>
+        <p id="username">{{ leUser.firstname }} {{ leUser.lastname }}</p>
         <p id="arobase-user">@{{ leUser.username }}</p>
-        <p id="date">🗓A rejoint Twitter le {{ formatDate(leUser.birthdate) }}</p>
+        <p id="date">🗓 A rejoint Twitter le {{ formatDate(leUser.birthdate) }}</p>
         <div id="stats">
           <p id="nbFollower">{{ userFollowers.length }} Abonné(s)</p>
           <p id="nbFollower">{{ userFollowing.length }} Abonnement(s)</p>
@@ -184,7 +185,8 @@ section header {
   padding: 70px;
   background-color: #1da1f2;
 }
-p span{
+
+p span {
   color: black;
 }
 

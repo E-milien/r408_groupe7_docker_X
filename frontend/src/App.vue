@@ -6,60 +6,73 @@ import { useRouter } from 'vue-router';
 const loginStore = useLoginStore()
 const router = useRouter();
 
-function deconnect (){
+function deconnect() {
   loginStore.logOut()
-  loginStore.variableUser = false
+  loginStore.variableUser.value = false
   router.push('/')
 }
 document.title = "Twitter";
 </script>
 <template>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
   <div class="container">
     <div class="content-wrapper">
 
-    <header class="header">
-      <h1>Twitter</h1>
-      <nav>
-        <img src="./assets/twtter.png" alt="twitter logo">
+      <header class="header">
+        <h1>Twitter</h1>
+        <nav>
+          <img src="./assets/twtter.png" alt="twitter logo">
 
-        <p><RouterLink to="/" class="nav-link"><i class="fas fa-home"></i>Home</RouterLink></p>
-        <p v-if="!loginStore.variableUser"><RouterLink to="/register" class="nav-link"><i class="fas fa-user-plus"></i> Créer un compte</RouterLink></p>
-        <p v-if="!loginStore.variableUser"><RouterLink to="/login" class="nav-link" > <i class="fas fa-sign-in-alt"></i>Se connecter</RouterLink></p>
-        <p v-if="loginStore.variableUser"><RouterLink to="/account" class="nav-link">
-          <i class="fas fa-user"></i> Mon compte</RouterLink>
-        </p>
-        <p v-if="loginStore.variableUser">
-            <RouterLink to="/" class="nav-link" @click="deconnect"> <i class="fas fa-sign-out-alt"></i>Se déconnecter</RouterLink>
-        </p>      
+          <p>
+            <RouterLink to="/" class="nav-link"><i class="fas fa-home"></i>Home</RouterLink>
+          </p>
+          <p v-if="!loginStore.variableUser">
+            <RouterLink to="/register" class="nav-link"><i class="fas fa-user-plus"></i> Créer un compte</RouterLink>
+          </p>
+          <p v-if="!loginStore.variableUser">
+            <RouterLink to="/login" class="nav-link"> <i class="fas fa-sign-in-alt"></i>Se connecter</RouterLink>
+          </p>
+          <p v-if="loginStore.variableUser">
+            <RouterLink to="/account" class="nav-link">
+              <i class="fas fa-user"></i> Mon compte
+            </RouterLink>
+          </p>
+          <p v-if="loginStore.variableUser">
+            <RouterLink to="/" class="nav-link" @click="deconnect"> <i class="fas fa-sign-out-alt"></i>Se déconnecter
+            </RouterLink>
+          </p>
         </nav>
-      
-    </header>
-    <main class="main-content">
-      <RouterView />
-    </main>
-  </div>
+
+      </header>
+      <main class="main-content">
+        <RouterView />
+      </main>
+    </div>
 
   </div>
 </template>
 
 <style scoped>
-img{
- width: 70px;
- height: 70px;
+img {
+  width: 70px;
+  height: 70px;
 }
+
 .container {
   display: flex;
   height: 100vh;
 }
+
 .content-wrapper {
   display: flex;
-  flex: 1; 
-  justify-content: space-between; /* Ajustement pour aligner les éléments à gauche et à droite */
+  flex: 1;
+  justify-content: space-between;
+  /* Ajustement pour aligner les éléments à gauche et à droite */
 
 }
-i{
+
+i {
   color: black;
   margin-right: 10px;
 }
@@ -69,11 +82,13 @@ nav {
   display: flex;
   flex-direction: column;
   position: fixed;
-  
+
 }
+
 nav a {
   text-decoration: none;
 }
+
 nav p {
   margin-top: 70px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -81,17 +96,22 @@ nav p {
   font-size: 30px;
   text-decoration: none;
 }
+
 .nav-link {
   color: black;
 }
+
 .nav-link:hover {
   color: #1da1f2;
   font-size: 30px;
   font-weight: bold;
 }
+
 .nav-link:hover i {
-  color: #1da1f2; /* Change la couleur de l'icône au survol */
+  color: #1da1f2;
+  /* Change la couleur de l'icône au survol */
 }
+
 .header {
   display: flex;
   flex-direction: column;
@@ -100,11 +120,13 @@ nav p {
   padding-right: 50;
   margin-left: 150px;
 }
+
 .header h1 {
   margin-bottom: 10px;
 }
+
 .main-content {
   margin-left: 200px;
-flex: 1;
+  flex: 1;
 }
 </style>

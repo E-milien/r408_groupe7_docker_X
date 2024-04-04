@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useLoginStore = defineStore('login', () => {
 
-    if(sessionStorage.getItem('iduser')=="" && sessionStorage.getItem('iduser')==null)
+    if (sessionStorage.getItem('iduser') == "" || sessionStorage.getItem('iduser') == null)
         var variableUser = ref(false)
     else
         var variableUser = ref(true)
@@ -16,8 +16,8 @@ export const useLoginStore = defineStore('login', () => {
         })
         return await response.json()
     }
-    async function logOut(){
-        sessionStorage.setItem('iduser',"")
+    async function logOut() {
+        sessionStorage.removeItem('iduser')
         variableUser.value = false
     }
     return { logUser, variableUser, logOut }

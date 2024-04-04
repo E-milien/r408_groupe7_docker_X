@@ -9,9 +9,7 @@ import { useFollowStore } from '../store/follow';
 import Tweet from '../components/Tweet.vue'
 import Retweet from '../components/Retweet.vue'
 
-const getCurrentUserId = () => {
-  return sessionStorage.getItem('iduser');
-};
+
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -28,6 +26,10 @@ var userTweets = ref([]);
 var userRetweets = ref([]);
 var userFollowers = ref([]);
 var userFollowing = ref([]);
+
+const getCurrentUserId = () => {
+  return sessionStorage.getItem('iduser');
+};
 
 const fetchFollowers = async () => {
   if (variableUser.value !== null) {
@@ -80,7 +82,8 @@ const fetchFollow = async () => {
   const currentId = getCurrentUserId();
   if (currentId !== "") {
     if (currentId > 0) {
-      return await followStore.followed(currentId, theTweet.user_id)
+      console.log("leUser.value.id", variableUser.value)
+      return await followStore.followed(currentId, variableUser.value)
     }
     else
       return false;
@@ -104,10 +107,10 @@ const toggleFollow = () => {
   if (currentId !== "") {
     if (currentId > 0) {
       if (textFollow.value == 'follow') {
-        followStore.addFollow({ 'follower_id': currentId, 'followed_id': theTweet.user_id });
+        followStore.addFollow({ 'follower_id': currentId, 'followed_id': variableUser.value });
         textFollow.value = 'followed';
       } else {
-        followStore.removeFollow({ 'follower_id': currentId, 'followed_id': theTweet.user_id });
+        followStore.removeFollow({ 'follower_id': currentId, 'followed_id': variableUser.value });
         textFollow.value = 'follow';
       }
       document.querySelector('.follow-button').classList.toggle('clicked');
@@ -134,7 +137,7 @@ const formatDate = (dateString) => {
   <!-- Flèche à gauche -->
 
   <p><span @click="goToAccueil" class="arrow">&larr;</span> {{ leUser.firstname }} {{ leUser.lastname }} - {{
-    userTweets.length }} posts</p>
+    userTweets.length + userRetweets.length }} posts</p>
 
   <section>
     <header>

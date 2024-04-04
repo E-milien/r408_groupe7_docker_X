@@ -145,6 +145,7 @@ const formatDate = (dateString) => {
         <img v-else id="profile_pic" src="../assets/pp/default.png" alt="profile_picture">
         <p id="username">{{ leUser.firstname }} {{ leUser.lastname }}</p>
         <p id="arobase-user">@{{ leUser.username }}</p>
+        <p v-if="leUser.bio"> {{ leUser.bio }}</p>
         <p id="date">🗓A rejoint Twitter le {{ formatDate(leUser.birthdate) }}</p>
         <div id="stats">
           <p id="nbFollower">{{ userFollowers.length }} Abonné(s)</p>

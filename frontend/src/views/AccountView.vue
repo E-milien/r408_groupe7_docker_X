@@ -167,7 +167,6 @@ img {
 
 .profile-pic #username,
 b {
-  color: white;
   font-size: 30px;
 }
 
@@ -183,6 +182,9 @@ b {
 section header {
   padding: 70px;
   background-color: #1da1f2;
+}
+p span{
+  color: black;
 }
 
 #stats {

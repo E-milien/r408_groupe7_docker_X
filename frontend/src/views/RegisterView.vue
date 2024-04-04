@@ -26,6 +26,7 @@ const register = async () => {
     };
     console.log('Nouvel utilisateur :', newUser);
     await userStore.addUser(newUser); // Appel de la méthode addUser du magasin
+    
     router.push('/');
 };
 </script>

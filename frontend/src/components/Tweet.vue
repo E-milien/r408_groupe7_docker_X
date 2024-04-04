@@ -151,11 +151,14 @@ const toggleLike = () => {
 
 
 const showCommentInput = ref(false);
+const showComments = ref(false); // Ajoutez une variable pour gérer l'affichage des commentaires
 
 
 
 const toggleReply = () => {
     showCommentInput.value = !showCommentInput.value;
+    showComments.value = !showComments.value; // Assurez-vous que les commentaires sont masqués lorsque vous répondez
+
 };
 
 const toggleRetweet = () => {
@@ -193,6 +196,8 @@ const toggleFollow = () => {
                 followStore.removeFollow({ 'follower_id': currentId, 'followed_id': theTweet.user_id });
                 textFollow.value = 'follow';
             }
+            document.querySelector('.follow-button').classList.toggle('clicked');
+
         }
         else
         {
@@ -225,9 +230,9 @@ const postCommentaire = () => {
 <template>
     <div id="leTweet">
         <div class="userProfile">
-            <img id="profile_pic" :src="leUser.profile_pic" alt="profile_picture">
+            <img id="profile_pic" :src="leUser.profile_pic" alt="profile_picture">  
             <h3 id="username">@{{ leUser.username }}</h3>
-            <button class="follow-button" @click="toggleFollow">{{textFollow}}</button>
+            <button class="follow-button"  @click="toggleFollow">{{textFollow}}</button>
 
         </div>
 
@@ -247,8 +252,9 @@ const postCommentaire = () => {
             <input type="text" id="inputCom" v-model="commentaire" placeholder="Commentaire..."  v-if="showCommentInput">
             <button id="postCom" @click="postCommentaire" v-if="showCommentInput">Poster</button>
         </div>
-        <Comment v-for="comment in lesCom" :key="comment.id" :comment="comment" />
-    </div>
+        <div v-if="showComments">
+            <Comment v-for="comment in lesCom" :key="comment.id" :comment="comment" />
+        </div>    </div>
 </template>
 
 <style scoped>
@@ -282,6 +288,9 @@ const postCommentaire = () => {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+}
+.follow-button{
+    margin-left: 7px;
 }
 
 #profile_pic {
@@ -365,4 +374,28 @@ const postCommentaire = () => {
     font-size: 14px;
     text-align: right;
 }
+.follow-button {
+    background-color: transparent;
+    border: 1px solid #1da1f2; /* Ajoute une bordure */
+    color: #1da1f2; /* Couleur du texte */
+    border-radius: 9999px; /* Permet de créer un bouton arrondi */
+    padding: 8px 16px; /* Ajoute un peu d'espace autour du texte */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Ajoute une transition douce pour l'effet hover */
+    margin-left: auto;
+}
+
+.follow-button {
+    background-color: transparent;
+    border: 1px solid #1da1f2;
+    color: #1da1f2;
+    border-radius: 9999px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+
+
 </style>

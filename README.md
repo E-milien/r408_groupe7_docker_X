@@ -15,6 +15,13 @@ Ce projet est un clone simplifié de X. Notre objectif est de créer une version
 
 -  Avant de commencer, assurez-vous d'avoir installé Docker Desktop sur votre machine. Vous pouvez le télécharger à partir du site officiel de Docker : https://www.docker.com/products/docker-desktop.
 
+## Utilisation 
+
+- Pour lancer le projet acceder a la racine du projet 
+    <cd 'dossier du projet'>
+- Ensuite lancer simplement la commande suivante :
+    <docker compose up> 
+
 ## Base de données
 
 http://localhost:1313/

@@ -234,7 +234,8 @@ const postCommentaire = () => {
 <template>
     <div id="leTweet">
         <div class="userProfile">
-            <img id="profile_pic" :src="leUser.profile_pic" alt="profile_picture" @click="redirigerVersCompte(leUser)">
+            <img v-if="leUser && leUser.profile_pic" id="profile_pic" :src="leUser.profile_pic" alt="profile_picture" @click="redirigerVersCompte(leUser)">
+        <img v-else id="profile_pic" src="../assets/pp/default.png" alt="profile_picture"  @click="redirigerVersCompte(leUser)">
             <h3 id="username" @click="redirigerVersCompte(leUser)">@{{ leUser.username }}</h3>
             <button v-if="parseInt(leUser.id) !== parseInt(getCurrentUserId())" class="follow-button"
                 @click="toggleFollow">{{ textFollow

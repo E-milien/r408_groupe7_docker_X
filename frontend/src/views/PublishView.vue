@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { ref ,onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import { useTweetStore } from '../store/tweet';
 
 const router = useRouter();
@@ -34,7 +34,7 @@ const postTweet = async () => {
 
 <style scoped>
 textarea {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;

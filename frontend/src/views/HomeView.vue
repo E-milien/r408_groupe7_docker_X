@@ -6,12 +6,12 @@ import { ref, computed } from 'vue';
 const tweetStore = useTweetStore()
 tweetStore.getTweets()
 
-const filtre=ref("")
+const filtre = ref("")
 
-const filteredTweets=computed(()=>{
-    var tmp = tweetStore.allTweet.filter(tweet=>tweet.tweet_text.toLowerCase().indexOf(filtre.value.toLowerCase())!=-1)
+const filteredTweets = computed(() => {
+    var tmp = tweetStore.allTweet.filter(tweet => tweet.tweet_text.toLowerCase().indexOf(filtre.value.toLowerCase()) != -1)
     console.log(tmp)
-  return tmp
+    return tmp
 })
 </script>
 
@@ -22,7 +22,7 @@ const filteredTweets=computed(()=>{
             <div class="search-bar">
                 <input id="rechercher" type="text" placeholder="Rechercher sur Twitter" v-model="filtre">
             </div>
-            <div class="tweet-list" :class="{ 'dark-mode': isDarkMode }">
+            <div class="tweet-list">
                 <Tweet v-for="tweet in filteredTweets" v-bind:key="tweet.id" :tweet="tweet" />
             </div>
         </div>
@@ -32,39 +32,44 @@ const filteredTweets=computed(()=>{
 </template>
 <style scoped>
 .container {
-  max-width: 800px; /* largeur maximale du contenu */
-  margin: 0 auto; /* centrage horizontal */
+    max-width: 800px;
+    /* largeur maximale du contenu */
+    margin: 0 auto;
+    /* centrage horizontal */
 }
 
 .search-bar {
-  position: fixed;
-  top: 0;
-  left: 51.5%;
-  transform: translateX(-50%);
-  width: calc(100% - 40px); /* largeur de la barre de recherche */
-  max-width: 700px; /* largeur maximale */
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 25px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 51.5%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    /* largeur de la barre de recherche */
+    max-width: 700px;
+    /* largeur maximale */
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 999;
 }
 
 #rechercher {
-  width: 150%;
-  border: none;
-  outline: none;
-  font-size: 16px;
+    width: 150%;
+    border: none;
+    outline: none;
+    font-size: 16px;
 }
 
 .tweet-list {
     margin-top: 75px;
 }
 
-section{
+section {
     width: 40%;
-margin-right: 200px;
+    margin-right: 200px;
 }
+
 .publish-button {
     position: fixed;
     bottom: 20px;

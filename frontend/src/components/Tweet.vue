@@ -136,13 +136,12 @@ const toggleLike = () => {
             } else {
                 likeStore.removeLike({ 'user_id': currentId, 'tweet_id': theTweet.id });
                 textLike.value = 'like';
-                nbLike.value -=  1;
+                nbLike.value -= 1;
             }
         }
-        else
-        {
+        else {
             router.push('/login')
-        }   
+        }
     }
     else {
         router.push('/login')
@@ -172,13 +171,12 @@ const toggleRetweet = () => {
             } else {
                 rtStore.removeRT({ 'user_id': currentId, 'tweet_id': theTweet.id });
                 textRt.value = 'retweet';
-                nbRT.value -=  1;
+                nbRT.value -= 1;
             }
         }
-        else
-        {
+        else {
             router.push('/login')
-        }   
+        }
     }
     else {
         router.push('/login')
@@ -199,10 +197,9 @@ const toggleFollow = () => {
             document.querySelector('.follow-button').classList.toggle('clicked');
 
         }
-        else
-        {
+        else {
             router.push('/login')
-        }   
+        }
     }
     else {
         router.push('/login')
@@ -211,7 +208,7 @@ const toggleFollow = () => {
 
 const redirigerVersCompte = (user) => {
     console.log('iduser', user.id)
-    sessionStorage.setItem('idForAccount',user.id)
+    sessionStorage.setItem('idForAccount', user.id)
     console.log('localstorage', sessionStorage.getItem('idForAccount'))
     router.push('/accountOther');
 }
@@ -238,8 +235,10 @@ const postCommentaire = () => {
     <div id="leTweet">
         <div class="userProfile">
             <img id="profile_pic" :src="leUser.profile_pic" alt="profile_picture" @click="redirigerVersCompte(leUser)">
-            <h3 class="username" @click="redirigerVersCompte(leUser)">@{{ leUser.username }}</h3>
-            <button v-if="leUser.id!==getCurrentUserId()" class="follow-button" @click="toggleFollow">{{textFollow}}</button>
+            <h3 id="username" @click="redirigerVersCompte(leUser)">@{{ leUser.username }}</h3>
+            <button v-if="parseInt(leUser.id) !== parseInt(getCurrentUserId())" class="follow-button"
+                @click="toggleFollow">{{ textFollow
+                }}</button>
         </div>
 
         <div id="main">
@@ -247,26 +246,32 @@ const postCommentaire = () => {
             <p class="date">Posté le {{ tweet.created_at }}</p>
         </div>
         <div id="interact">
-            <button class="action-button" @click="toggleReply"> {{ lesCom.length }}   <i :class="[showCommentInput ? 'active-reply-icon' : '', 'far fa-comment']"></i> Répondre </button>
-            <button class="action-button" @click="toggleLike"><i :class="[textLike === 'liked' ? 'fas' : 'far', 'fa-heart', textLike === 'liked' ? 'active-icon' : '']"></i></button>
+            <button class="action-button" @click="toggleReply"> {{ lesCom.length }} <i
+                    :class="[showCommentInput ? 'active-reply-icon' : '', 'far fa-comment']"></i> Répondre </button>
+            <button class="action-button" @click="toggleLike"><i
+                    :class="[textLike === 'liked' ? 'fas' : 'far', 'fa-heart', textLike === 'liked' ? 'active-icon' : '']"></i></button>
             <span id="likes"> {{ nbLike }}</span>
-           
 
-            <img id="rt" :src="textRt === 'retweeted' ? 'src/assets/rt2.png' : 'src/assets/rt1.png'" @click="toggleRetweet" alt="Retweet" class="retweet-icon">
 
-            <span id="rts">  {{ nbRT }}</span>
-            <input type="text" id="inputCom" v-model="commentaire" placeholder="Commentaire..."  v-if="showCommentInput">
+            <img id="rt" :src="textRt === 'retweeted' ? 'src/assets/rt2.png' : 'src/assets/rt1.png'"
+                @click="toggleRetweet" alt="Retweet" class="retweet-icon">
+
+            <span id="rts"> {{ nbRT }}</span>
+            <input type="text" id="inputCom" v-model="commentaire" placeholder="Commentaire..." v-if="showCommentInput">
             <button id="postCom" @click="postCommentaire" v-if="showCommentInput">Poster</button>
         </div>
         <div v-if="showComments">
             <Comment v-for="comment in lesCom" :key="comment.id" :comment="comment" />
-        </div>    </div>
+        </div>
+    </div>
 </template>
 
 <style scoped>
 .action-button-retweet {
-    color: #1da1f2; /* Couleur du texte */
+    color: #1da1f2;
+    /* Couleur du texte */
 }
+
 #leTweet {
     background-color: rgb(231, 231, 231);
     border: 1px solid #e1e8ed;
@@ -274,20 +279,27 @@ const postCommentaire = () => {
     padding: 15px;
     margin-bottom: 15px;
 }
+
 .active-icon {
-    color: #1da1f2; 
+    color: #1da1f2;
 }
 
 .active-reply-icon {
-    color: #1da1f2; 
+    color: #1da1f2;
 }
-#rt{
+
+#rt {
     width: 17px;
     height: 17px;
     cursor: pointer;
 }
-#leTweet{
+
+#leTweet {
     width: 700px;
+}
+
+#username {
+    cursor: pointer;
 }
 
 .userProfile {
@@ -295,7 +307,8 @@ const postCommentaire = () => {
     align-items: center;
     margin-bottom: 10px;
 }
-.follow-button{
+
+.follow-button {
     margin-left: 7px;
 }
 
@@ -347,6 +360,7 @@ const postCommentaire = () => {
     color: #657786;
     margin-right: 10px;
 }
+
 #rts {
     color: #657786;
     margin-right: 10px;
@@ -381,12 +395,13 @@ const postCommentaire = () => {
     font-size: 14px;
     text-align: right;
 }
+
 .follow-button {
     background-color: transparent;
-    border: 1px solid #1da1f2; 
-    color: #1da1f2; 
+    border: 1px solid #1da1f2;
+    color: #1da1f2;
     border-radius: 9999px;
-    padding: 8px 16px; 
+    padding: 8px 16px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     margin-left: auto;

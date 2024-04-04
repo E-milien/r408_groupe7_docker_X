@@ -9,6 +9,9 @@ import { useFollowStore } from '../store/follow';
 import Tweet from '../components/Tweet.vue'
 import Retweet from '../components/Retweet.vue'
 
+const getCurrentUserId = () => {
+  return sessionStorage.getItem('iduser');
+};
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -16,6 +19,7 @@ const tweetStore = useTweetStore();
 const retweetStore = useRtStore();
 const followStore = useFollowStore();
 var variableUser = ref('')
+var textFollow = ref("pas assigné");
 
 variableUser.value = sessionStorage.getItem('idForAccount')
 
@@ -72,10 +76,51 @@ const fetchUserRetweets = async () => {
   return await retweetStore.getRtByIdUser(variableUser.value)
 };
 
+const fetchFollow = async () => {
+  const currentId = getCurrentUserId();
+  if (currentId !== "") {
+    if (currentId > 0) {
+      return await followStore.followed(currentId, theTweet.user_id)
+    }
+    else
+      return false;
+  }
+};
+
+fetchFollow().then(follow => {
+  if (follow) {
+    textFollow.value = 'followed'
+  }
+  else
+    textFollow.value = 'follow'
+});
 
 fetchUserRetweets().then(rt => {
   userRetweets.value = rt
 });
+
+const toggleFollow = () => {
+  const currentId = getCurrentUserId();
+  if (currentId !== "") {
+    if (currentId > 0) {
+      if (textFollow.value == 'follow') {
+        followStore.addFollow({ 'follower_id': currentId, 'followed_id': theTweet.user_id });
+        textFollow.value = 'followed';
+      } else {
+        followStore.removeFollow({ 'follower_id': currentId, 'followed_id': theTweet.user_id });
+        textFollow.value = 'follow';
+      }
+      document.querySelector('.follow-button').classList.toggle('clicked');
+
+    }
+    else {
+      router.push('/login')
+    }
+  }
+  else {
+    router.push('/login')
+  }
+};
 
 const formatDate = (dateString) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -91,20 +136,22 @@ const formatDate = (dateString) => {
   <p><span @click="goToAccueil" class="arrow">&larr;</span> {{ leUser.firstname }} {{ leUser.lastname }} - {{
     userTweets.length }} posts</p>
 
-<section>
+  <section>
     <header>
 
       <div class="profile-pic">
 
         <img v-if="leUser && leUser.profile_pic" id="profile_pic" :src="leUser.profile_pic" alt="profile_picture">
         <img v-else id="profile_pic" src="../assets/pp/default.png" alt="profile_picture">
-            <p id="username">{{ leUser.firstname }} {{ leUser.lastname }}</p>
+        <p id="username">{{ leUser.firstname }} {{ leUser.lastname }}</p>
         <p id="arobase-user">@{{ leUser.username }}</p>
         <p id="date">🗓A rejoint Twitter le {{ formatDate(leUser.birthdate) }}</p>
         <div id="stats">
           <p id="nbFollower">{{ userFollowers.length }} Abonné(s)</p>
           <p id="nbFollower">{{ userFollowing.length }} Abonnement(s)</p>
         </div>
+        <button v-if="parseInt(leUser.id) !== parseInt(getCurrentUserId())" class="follow-button"
+          @click="toggleFollow">{{ textFollow }}</button>
       </div>
       <p></p>
     </header>
@@ -179,7 +226,8 @@ section header {
   padding: 70px;
   background-color: #1da1f2;
 }
-p span{
+
+p span {
   color: black;
 }
 
@@ -189,5 +237,20 @@ p span{
 
 #stats p {
   margin-right: 10px;
+}
+
+.follow-button {
+  background-color: transparent;
+  border: 1px solid #1da1f2;
+  color: #1da1f2;
+  border-radius: 9999px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin-left: auto;
+}
+
+.follow-button {
+  margin-left: 7px;
 }
 </style>

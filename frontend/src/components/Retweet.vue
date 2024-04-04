@@ -38,7 +38,7 @@ fetchUser().then(usr => {
 
 <template>
     <div class="retweet">
-        <p v-if="leUser.id !== getCurrentUserId">@{{ leUser.username }} à reposté</p>
+        <p v-if="parseInt(leUser.id) !== parseInt(getCurrentUserId())">@{{ leUser.username }} à reposté</p>
         <p v-else>Vous avez reposté</p>
         <Tweet :key="tweet.id" :tweet="tweet" />
     </div>

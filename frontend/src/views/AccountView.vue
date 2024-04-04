@@ -107,6 +107,8 @@ onMounted(() => {
         <p id="username">{{ leUser.firstname }} {{ leUser.lastname }}</p>
         <p id="arobase-user">@{{ leUser.username }}</p>
         <p id="date">🗓 A rejoint Twitter le {{ formatDate(leUser.birthdate) }}</p>
+
+        <p v-if="leUser.bio"> {{ leUser.bio }}</p>
         <div id="stats">
           <p id="nbFollower">{{ userFollowers.length }} Abonné(s)</p>
           <p id="nbFollower">{{ userFollowing.length }} Abonnement(s)</p>

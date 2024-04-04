@@ -32,7 +32,6 @@ const filteredTweets = computed(() => {
 </template>
 <style scoped>
 .container {
-    max-width: 800px;
     /* largeur maximale du contenu */
     margin: 0 auto;
     /* centrage horizontal */
@@ -63,6 +62,7 @@ const filteredTweets = computed(() => {
 
 .tweet-list {
     margin-top: 75px;
+    width: 220%;
 }
 
 section {

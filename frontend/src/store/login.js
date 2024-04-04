@@ -17,7 +17,7 @@ export const useLoginStore = defineStore('login', () => {
         return await response.json()
     }
     async function logOut(){
-        sessionStorage.setItme('iduser',"")
+        sessionStorage.setItem('iduser',"")
         variableUser.value = false
     }
     return { logUser, variableUser, logOut }

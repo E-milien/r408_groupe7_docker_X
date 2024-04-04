@@ -151,11 +151,14 @@ const toggleLike = () => {
 
 
 const showCommentInput = ref(false);
+const showComments = ref(false); // Ajoutez une variable pour gérer l'affichage des commentaires
 
 
 
 const toggleReply = () => {
     showCommentInput.value = !showCommentInput.value;
+    showComments.value = !showComments.value; // Assurez-vous que les commentaires sont masqués lorsque vous répondez
+
 };
 
 const toggleRetweet = () => {
@@ -193,6 +196,8 @@ const toggleFollow = () => {
                 followStore.removeFollow({ 'follower_id': currentId, 'followed_id': theTweet.user_id });
                 textFollow.value = 'follow';
             }
+            document.querySelector('.follow-button').classList.toggle('clicked');
+
         }
         else
         {
@@ -242,7 +247,7 @@ const postCommentaire = () => {
             <p class="date">Posté le {{ tweet.created_at }}</p>
         </div>
         <div id="interact">
-            <button class="action-button" @click="toggleReply"><i :class="[showCommentInput ? 'active-reply-icon' : '', 'far fa-comment']"></i> Répondre</button>
+            <button class="action-button" @click="toggleReply"> {{ lesCom.length }}   <i :class="[showCommentInput ? 'active-reply-icon' : '', 'far fa-comment']"></i> Répondre </button>
             <button class="action-button" @click="toggleLike"><i :class="[textLike === 'liked' ? 'fas' : 'far', 'fa-heart', textLike === 'liked' ? 'active-icon' : '']"></i></button>
             <span id="likes"> {{ nbLike }}</span>
            
@@ -253,8 +258,9 @@ const postCommentaire = () => {
             <input type="text" id="inputCom" v-model="commentaire" placeholder="Commentaire..."  v-if="showCommentInput">
             <button id="postCom" @click="postCommentaire" v-if="showCommentInput">Poster</button>
         </div>
-        <Comment v-for="comment in lesCom" :key="comment.id" :comment="comment" />
-    </div>
+        <div v-if="showComments">
+            <Comment v-for="comment in lesCom" :key="comment.id" :comment="comment" />
+        </div>    </div>
 </template>
 
 <style scoped>
@@ -288,6 +294,9 @@ const postCommentaire = () => {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+}
+.follow-button{
+    margin-left: 7px;
 }
 
 #profile_pic {
@@ -371,9 +380,5 @@ const postCommentaire = () => {
     margin: 0;
     font-size: 14px;
     text-align: right;
-}
-
-.username {
-    cursor: pointer;
 }
 </style>

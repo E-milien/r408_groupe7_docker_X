@@ -18,7 +18,7 @@ Ce projet est un clone simplifié de X. Notre objectif est de créer une version
 ## Utilisation 
 
 - Pour lancer le projet acceder a la racine du projet 
-    <cd 'dossier du projet'>
+    <cd Docker_Twitter_RENDU_LAVAL_RAGUIN_ROUKINE>
 - Ensuite lancer simplement la commande suivante :
     <docker compose up> 
 

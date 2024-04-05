@@ -1,6 +1,6 @@
-# Projet X Clone
+# Projet Twitter Clone
 
-Ce projet est un clone de X réalisé par le Goupe 7.
+Ce projet est un clone de Twitter réalisé par le Goupe 7.
 
 ## Membres du groupe et leurs roles:
 - Emilien Roukine Dockerisation du projet/Programmation en backend et   frontend
@@ -8,8 +8,7 @@ Ce projet est un clone de X réalisé par le Goupe 7.
 - Quentin Laval Dockerisation du projet/Programmation en backend et   frontend
 
 ## Introduction
-Ce projet est un clone simplifié de X. Notre objectif est de créer une version fonctionnelle de X en utilisant Docker pour orchestrer les services (frontend, backend, base de données) et en fournissant des instructions claires pour le lancement et l'utilisation du projet.
-
+Ce projet est un clone simplifié de Twitter. Notre objectif est de créer une version fonctionnelle de Twitter en utilisant Docker pour orchestrer les services (frontend, backend, base de données) et en fournissant des instructions claires pour le lancement et l'utilisation du projet.
 
 ## Prérequis
 
@@ -17,10 +16,10 @@ Ce projet est un clone simplifié de X. Notre objectif est de créer une version
 
 ## Utilisation 
 
-- Pour lancer le projet acceder a la racine du projet ou se situe le fichier 'docker-compose.yml'
-    <cd 'repertoire_de_votre_projet'>
+- Pour lancer le projet acceder à la racine du projet ou se situe le fichier 'docker-compose.yml'
+    `cd 'repertoire_de_votre_projet'`
 - Ensuite lancer simplement la commande suivante :
-    <docker compose up> 
+    `docker compose up`
 
 ## Base de données
 
@@ -34,18 +33,17 @@ http://localhost:1313/
 
 http://localhost:5020/
 
+## Fonctionnalités de l'application
 
-## Fonctionnalité de l'application
+Votre application Twitter clone comprend les fonctionnalités suivantes :
 
-Fonctionnalités de l'application
-Votre application X clone de Twitter comprend les fonctionnalités suivantes :
-
-- Publier des tweets
-- Liker des tweets
-- Répondre à des tweets
-- Retweeter des tweets
--  Système de connexion sécurisé avec les mots de passe hashés
-- Système de follow pour suivre d'autres utilisateurs
-- Onglet 'Mon Compte' qui nous permet de retrouver toutes les informations de l'utilisateur connecté (nombre de follow, nombre d'abonnement, pseudo ,nom et prenom etc ...)
+- Publication de tweets
+- Likes sur des tweets
+- Réponses à des tweets
+- Retweet des tweets
+- Système de connexion sécurisée avec les mots de passe hashés
+- Système de suivi pour suivre d'autres utilisateurs
+- Onglet 'Mon Compte' qui permet de retrouver toutes les informations de l'utilisateur connecté (nombre de followers, nombre d'abonnements, pseudonyme, nom et prénom, etc.)
+- Fonctionnalité de recherche de tweets en fonction de leur contenu
 
 Assurez-vous d'avoir un compte utilisateur pour accéder à toutes les fonctionnalités de l'application.
